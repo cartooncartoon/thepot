@@ -43,6 +43,7 @@ const PotDesc = () => {
 
             .description {
                 display: none;
+                overflow-x: hidden;
             }
 
             @media (max-width: 1400px) {
