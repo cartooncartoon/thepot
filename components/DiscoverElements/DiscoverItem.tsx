@@ -51,7 +51,15 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
                 margin-bottom: 2rem;
             }
 
-            
+            @media (max-width: 900px) {
+                .card:hover {
+                    transform: none;
+                }
+
+                .info {
+                    padding: 0 16px 0 16px;
+                }
+
             `}</style>
             <Link href="pot/hello">
             <div className="card">

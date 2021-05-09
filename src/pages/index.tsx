@@ -402,7 +402,9 @@ export default function Home() {
   return (
     <div>
       <style jsx>{`
-      
+      .discover {
+        padding: 0 24px 0 24px;
+      }
       .navbar {
         display: flex;
       }
@@ -410,6 +412,10 @@ export default function Home() {
       @media (max-width: 900px) {
         .navbar {
             display: none;
+        }
+
+        .discover {
+          padding: 0 0 0 0;
         }
         }
       `}
@@ -437,7 +443,8 @@ export default function Home() {
         {filter && <FilterDropdown setFilter={setFilter} />}
         </div>
       </div>
-      <div style={{padding: '0 24px 0 24px'}}>
+      <div 
+      className="discover">
       <Discover />
       </div>
     </div>
