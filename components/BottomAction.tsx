@@ -39,7 +39,7 @@ const BottomAction: React.SFC<BottomActionProps> = () => {
             `}</style>
             <div 
                 className="JOIN_btn"
-                style={{width: '75%', height: '100%',
+                style={{width: '100%', height: '100%',
                 alignItems: 'center', justifyContent: 'center',
                 fontSize: '1.5rem', fontWeight: 'bold', 
                 display: 'flex'}}>
