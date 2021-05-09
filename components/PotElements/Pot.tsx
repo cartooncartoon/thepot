@@ -54,7 +54,6 @@ const PotDesc = () => {
             @media (max-width: 1050px) {
                 .post_desc {
                     max-width: 100%;
-                    padding-bottom: 4rem;
                     width: 100%;
                     overflow: auto;
                     height: calc(100vh - 64px);
@@ -125,28 +124,39 @@ We suggest hosting players save each Game Mode to enable quicker lobby setup.
             </p>
             </div>
             <div className="description">
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '0 0 0 0', padding: '1rem 2rem 2rem 2rem'}}>
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '0 0 0 0', padding: '1rem 2rem 2rem 0'}}>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', padding: '1rem 0 1rem 1rem'}}>
                 <h1 style={{fontSize: 24, margin: 0}}>Call of Duty: Modern Warfare</h1>
                 <p style={{margin: 0,}}>Game</p>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '1rem 0 0 0'}}>
+                <div style={{display: 'flex', 
+                background: 'rgb(18, 18, 18)',
+                width: '100vw',
+                flexDirection: 'column', alignItems: 'flex-start', padding: '1rem 0 1rem 1rem'}}>
                 <h1 style={{fontSize: 24, margin: 0}}>Tourney</h1>
                 <p style={{margin: 0,}}>Game Type</p>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '1rem 0 0 0'}}>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '1rem 0 0 0', padding: '1rem 0 1rem 1rem'}}>
                 <h1 style={{fontSize: 24, margin: 0}}>1,552,485 USD</h1>
                 <p style={{margin: 0,}}>Pot Amount</p>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '1rem 0 0 0',}}>
+                <div style={{display: 'flex', 
+                background: 'rgb(18, 18, 18)',
+                width: '100vw',
+                flexDirection: 'column', alignItems: 'flex-start', padding: '1rem 0 1rem 1rem'}}>
                 <h1 style={{fontSize: 24, margin: 0}}>2,279</h1>
                 <p style={{margin: 0}}>Players</p>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '1rem 0 0 0',}}>
+                <div style={{display: 'flex', flexDirection: 'column', 
+                padding: '1rem 0 1rem 1rem',
+                alignItems: 'flex-start', margin: '1rem 0 0 0',}}>
                 <h1 style={{fontSize: 24, margin: 0}}>65 days</h1>
                 <p style={{margin: 0}}>Left to Join</p>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '1rem 0 0 0',}}>
+                <div style={{display: 'flex', 
+                background: 'rgb(18, 18, 18)',
+                width: '100vw',
+                flexDirection: 'column', alignItems: 'flex-start', padding: '1rem 0 1rem 1rem'}}>
                 <h1 style={{fontSize: 24, margin: 0}}>20 USD</h1>
                 <p style={{margin: 0}}>Fee</p>
                 </div>
