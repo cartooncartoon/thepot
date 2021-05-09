@@ -93,6 +93,7 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                     }
                 }
             `}</style>
+            
             <Link href="/">
                 <div 
                 className="logo"

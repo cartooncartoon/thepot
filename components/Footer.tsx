@@ -105,9 +105,9 @@ const Footer: React.SFC<FooterProps> = () => {
                 gap: 1rem;
             }
 
-            @media (max-width: 900px) {
+            @media (max-width: 1200px) {
                 .footer {
-                    display: hidden;
+                    display: none;
                 }
             }
 

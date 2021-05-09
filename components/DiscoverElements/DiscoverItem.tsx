@@ -66,8 +66,8 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
             </div>
             </Link>
             <div className="info">
-            <h3>Metal Skin Panic: MADOX-01 Unobtanium Edition</h3>
-            <p>The definitive ‘80s Sci-Fi documentary featuring interviews with actors, directors, and SFX experts.</p>
+            <h3>1 v. 1 Death Match | Call of Duty: Modern Warfare <br />
+                $400 Pot | $240 Fee</h3>
             </div>
         </div>
     );

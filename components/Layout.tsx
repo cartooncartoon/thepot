@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions';
+import BottomAction from './BottomAction';
+import Fab from './Fab';
 import Footer from './Footer';
 import Header from './Header';
 import SmallHeader from './SmallHeader';
@@ -15,6 +17,7 @@ const Layout: React.SFC<LayoutProps> = ({ children }) => {
     return (  
         <div>
             <Header />
+            <BottomAction />
             <SmallHeader />
             <div>
             {children}
