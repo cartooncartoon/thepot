@@ -105,6 +105,12 @@ const Footer: React.SFC<FooterProps> = () => {
                 gap: 1rem;
             }
 
+            @media (max-width: 900px) {
+                .footer {
+                    display: hidden;
+                }
+            }
+
             `}</style>
             <p>© 2021 ThePot, Inc. All rights reserved.</p>
             <div style={{display: 'grid', alignItems: 'center', gridTemplateColumns: 'repeat(6, 1fr)', gap: '1rem'}}>

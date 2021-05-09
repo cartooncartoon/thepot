@@ -76,7 +76,7 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                     display: none;
                     justify-content: space-between;
                     align-items: center;
-                    padding: 0 24px 0 24px;
+                    padding: 0 12px 0 12px;
                     border-bottom-color: rgba(255, 255, 255, 0.1);
                     border-bottom-style: solid;
                     border-bottom-width: 1px;
