@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions';
 import Footer from './Footer';
 import Header from './Header';
@@ -11,6 +11,7 @@ export interface LayoutProps {
  
 const Layout: React.SFC<LayoutProps> = ({ children }) => {
     const {width, height} = useWindowDimensions();
+
     return (  
         <div>
             <Header />

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react'
 
 export interface SmallHeaderProps {
@@ -21,7 +22,7 @@ function Logo() {
         ></path>
         <style jsx>{`
             svg {
-                fill: rgba(255, 255, 255, .8);
+                fill: rgba(255, 255, 255, 1);
                 margin: 0 0 0 .5rem;
             }
 
@@ -49,9 +50,9 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                     border-bottom-style: solid;
                     border-bottom-width: 1px;
                     height: 4.5rem;
-                    position: sticky;
+                    position: fixed;
                     z-index: 999;
-                    top: 0px;
+                    bottom: 0px;
                     background: rgb(18, 18, 18);
                 }
 
@@ -61,7 +62,13 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                     }
                 }
             `}</style>
-            <Logo />
+            <Link href="/">
+                <div 
+                className="logo"
+                style={{display: 'flex', alignItems: 'center', cursor: 'pointer', fontWeight: 'bold', fontSize: '2.25rem'}}>
+                <Logo />
+                </div>
+            </Link>
         </div>
     );
 }

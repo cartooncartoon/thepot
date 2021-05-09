@@ -420,18 +420,17 @@ export default function Home() {
         }
       `}
       </style>
-      <div style={{display: 'flex', alignItems: 'center',
-      padding: '2rem 24px 1.20rem 24px',
+      <div 
+      className="navbar"
+      style={{alignItems: 'center',
+      padding: '2rem 30px 1.20rem 30px',
       margin: '0 0 1rem 0',
-      justifyContent: 'space-between', 
+      justifyContent: 'flex-end', 
       background: 'rgb(18, 18, 18)', 
       zIndex: 99,
       position: 'sticky', top: 64}}>
-      <div style={{display: 'flex', alignItems: 'center'}}>
-        </div>
         <div 
-        className="navbar"
-        style={{alignItems: 'center', overflow: 'auto'}}>
+        style={{alignItems: 'center', display: 'flex', overflow: 'auto'}}>
         <div style={{display: 'flex', flexDirection: 'column'}}><MenuItem onClick={() => setGame(!game)}><Joystick /> Game</MenuItem>
         {game && <Dropdown setGame={setGame}/>}</div>
         <div style={{display: 'flex', flexDirection: 'column'}}><MenuItem onClick={() => setGT(!gt)}><Select /> Type</MenuItem>
