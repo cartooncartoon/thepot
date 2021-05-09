@@ -1,10 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+
 html,
 body {
   padding: 0;
+  color: white;
+  background: rgb(18, 18, 18);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Poppins", sans-serif;
 }
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.025);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.025);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-clip: content-box;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.5); /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: rgba(255, 255, 255, 0.5); /* Gecko Browsers */
+}
+
 
 a {
   color: inherit;
@@ -13,4 +40,30 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+h3 { 
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+p {
+  margin: 0;
+  font-size: .9rem;
 }
