@@ -16,6 +16,13 @@ const Pot: React.SFC<PotProps> = () => {
                 padding: 24px;
                 margin: auto;
             }
+
+            @media (max-width: 1050px) {
+                .pot {
+                    grid-template-columns: repeat(1, 1fr);
+                    padding: 0px;
+                }
+            }
             `}</style>
         <PotDesc />
         <PotCard/>
@@ -39,9 +46,10 @@ const PotDesc = () => {
                 }
             }
 
-            @media (max-width: 1200px) {
+            @media (max-width: 1050px) {
                 .post_desc {
-                    max-width: 600px;
+                    max-width: 100%;
+                    background: rgb(18, 18, 18);
                 }
             }
             
