@@ -29,7 +29,7 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
             
 
             .card {
-                height: 440px;
+                height: 400px;
                 transition: transform 350ms ease, -webkit-transform 350ms ease;
                 box-shadow: 0 24px 17px 0 rgb(0 0 0 / 5%), 0 4.5px 6px 0 rgb(0 0 0 / 20%);
                 background: url('https://www.callofduty.com/content/dam/atvi/callofduty/cod-touchui/kronos/common/social-share/social-share-image.jpg');
