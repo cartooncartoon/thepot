@@ -52,7 +52,6 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
             .card {
                 height: 300px;
                 overflow: hidden;
-                filter: grayscale(50%);
                 position: relative;
                 display: flex;
                 align-items: center;

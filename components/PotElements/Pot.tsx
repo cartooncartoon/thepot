@@ -185,13 +185,7 @@ const PotCard = () => {
         <div className="discoverItem">
             <style jsx>{`
             .discoverItem {
-                flex-shrink: 0;
-                height: 100vh;
-                position: sticky;
-                top: 72px;
                 width: 100%;
-                max-width: 500px;
-                margin: auto;
                 transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(
                     0deg
                     ) rotateY(
@@ -205,16 +199,16 @@ const PotCard = () => {
                     );
                 transform-style: preserve-3d;
                 transition: transform 350ms ease, -webkit-transform 350ms ease;
+                margin-bottom: 1rem;
             }
 
             
 
             .card {
-                height: 240px;
+                height: 300px;
+                overflow: hidden;
                 position: relative;
                 display: flex;
-                -webkit-filter: grayscale(80%); /* Safari 6.0 - 9.0 */
-                
                 align-items: center;
                 justify-content: center;
                 box-shadow: 0 24px 17px 0 rgb(0 0 0 / 5%), 0 4.5px 6px 0 rgb(0 0 0 / 20%);
@@ -225,27 +219,22 @@ const PotCard = () => {
 
             h1 {
                 font-size: 3rem;
-                position: absolute;
-                margin-bottom: 24px;
             }
 
             img {
                 object-fit: cover;
-                filter: grayscale(50%);
-                filter: brightness(40%);
             }
 
             h3 {
                 font-weight: 600;
                 font-size: 1rem;
             }
+            .discoverItem:hover {
+                transform: scale(1.02);
+            }
 
             .info {
                 margin-bottom: 2rem;
-            }
-
-            .menu {
-                height: 100%;
             }
 
             @media (max-width: 900px) {
@@ -259,14 +248,15 @@ const PotCard = () => {
 
             `}</style>
             <div className="card">
-                <img width="100%" height="100%" src="https://www.cnet.com/a/img/MbiDRXBQETPXgQV1ttOQC-w9jNw=/940x0/2018/06/12/79cc03c2-a7c1-4687-9254-adb72a5f55a0/super-smash-bros-ultimate-nintendo.png" />
-                <h1>$400</h1>
-                <div style={{position: 'absolute', bottom: 0, background: 'rgba(18, 18, 18, 0.9)', width: '100%', height: '2rem', display: 'flex', justifyContent: 'space-between', padding: '1.5rem', alignItems: 'center'}}>
-                    <p>Entry Fee:</p>
-                    <p>$220</p>
+                <img width="100%" height="100%" src="https://media.wired.com/photos/5c119aaa1d856b064de8472b/master/pass/SSB.jpg" />
+                <div style={{position: 'absolute', 
+                bottom: 0, background: 'rgba(18, 18, 18, 0.85)', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', padding: '1.5rem', alignItems: 'center'}}>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <h1>400 <PotIcon /></h1>
+                    <p>Fee: $220</p>
+                    </div>
                 </div>
             </div>
-            <div className="menu">
             <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
             <p>1 v. 1 Death Match</p>
             <p>Challenger: Dukes (1 - 0)</p>
@@ -274,12 +264,8 @@ const PotCard = () => {
             <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             Super Smash Bros (Wii U)
             </div>
-            <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            65 Days Left
-            </div>
-            <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            JOIN
-            </div>
+            <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+            <p>JOIN</p>
             </div>
         </div>
     );
