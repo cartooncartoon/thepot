@@ -34,7 +34,7 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
                 height: 340px;
                 position: relative;
                 display: flex;
-                -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
+                -webkit-filter: grayscale(75%); /* Safari 6.0 - 9.0 */
                 
                 align-items: center;
                 justify-content: center;
@@ -51,7 +51,7 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
 
             img {
                 object-fit: cover;
-                filter: grayscale(25%);
+                filter: grayscale(50%);
                 filter: brightness(40%);
             }
 
