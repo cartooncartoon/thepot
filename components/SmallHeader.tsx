@@ -88,6 +88,49 @@ function Logo() {
       </svg>
     );
   }
+
+const Avi = () => {
+    return (
+        <div className="avi">
+            <style jsx>{`
+            .avi {
+                width: 42px;
+                height: 42px;
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 100%;
+            }
+            `}</style>
+        </div>
+    )
+}
+
+
+const Settings = () => {
+    return (
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="42"
+        height="42"
+        viewBox="0 0 32 32"
+      >
+        <path
+          d="M29.21 11.84a3.92 3.92 0 01-3.09-5.3 1.84 1.84 0 00-.55-2.07 14.75 14.75 0 00-4.4-2.55 1.85 1.85 0 00-2.09.58 3.91 3.91 0 01-6.16 0 1.85 1.85 0 00-2.09-.58 14.82 14.82 0 00-4.1 2.3 1.86 1.86 0 00-.58 2.13 3.9 3.9 0 01-3.25 5.36 1.85 1.85 0 00-1.62 1.49A14.14 14.14 0 001 16a14.32 14.32 0 00.19 2.35 1.85 1.85 0 001.63 1.55A3.9 3.9 0 016 25.41a1.82 1.82 0 00.51 2.18 14.86 14.86 0 004.36 2.51 2 2 0 00.63.11 1.84 1.84 0 001.5-.78 3.87 3.87 0 013.2-1.68 3.92 3.92 0 013.14 1.58 1.84 1.84 0 002.16.61 15 15 0 004-2.39 1.85 1.85 0 00.54-2.11 3.9 3.9 0 013.13-5.39 1.85 1.85 0 001.57-1.52A14.5 14.5 0 0031 16a14.35 14.35 0 00-.25-2.67 1.83 1.83 0 00-1.54-1.49zM21 16a5 5 0 11-5-5 5 5 0 015 5z"
+          data-name="Layer 2"
+        ></path>
+
+        <style jsx>{`
+            svg {
+                fill: rgba(255, 255, 255, 0.5);
+            }
+
+            svg:hover {
+                fill: rgba(255, 255, 255, 1);
+            }
+
+        `}</style>
+      </svg>
+    )
+}
  
 const SmallHeader: React.SFC<SmallHeaderProps> = () => {
     return (
@@ -100,9 +143,9 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                     justify-content: space-between;
                     align-items: center;
                     padding: 0 12px 0 12px;
-                    border-bottom-color: rgba(255, 255, 255, 0.1);
-                    border-bottom-style: solid;
-                    border-bottom-width: 1px;
+                    border-top-color: rgba(255, 255, 255, 0.1);
+                    border-top-style: solid;
+                    border-top-width: 1px;
                     height: 4.5rem;
                     position: fixed;
                     z-index: 999;
@@ -125,6 +168,8 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                 </div>
             </Link>
             <SearchIcon />
+            <Avi />
+            <Settings />
         </div>
     );
 }

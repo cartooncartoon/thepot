@@ -256,7 +256,7 @@ const PotCard = () => {
             `}</style>
             <div className="card">
                 <img width="100%" height="100%" src="https://www.cnet.com/a/img/MbiDRXBQETPXgQV1ttOQC-w9jNw=/940x0/2018/06/12/79cc03c2-a7c1-4687-9254-adb72a5f55a0/super-smash-bros-ultimate-nintendo.png" />
-                <h1>400 <PotIcon /></h1>
+                <h1>$400</h1>
                 <div style={{position: 'absolute', bottom: 0, background: 'rgba(18, 18, 18, 0.9)', width: '100%', height: '2rem', display: 'flex', justifyContent: 'space-between', padding: '1.5rem', alignItems: 'center'}}>
                     <p>Entry Fee:</p>
                     <p>$220</p>
