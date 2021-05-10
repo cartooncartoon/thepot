@@ -184,8 +184,14 @@ const PotCard = () => {
     return (
         <div className="discoverItem">
             <style jsx>{`
+            
             .discoverItem {
                 width: 100%;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+                flex-shrink: 0;
+                height: 100%;
                 transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(
                     0deg
                     ) rotateY(
@@ -205,7 +211,7 @@ const PotCard = () => {
             
 
             .card {
-                height: 300px;
+                height: 240px;
                 overflow: hidden;
                 position: relative;
                 display: flex;
@@ -253,6 +259,7 @@ const PotCard = () => {
                 bottom: 0, background: 'rgba(18, 18, 18, 0.85)', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', padding: '1.5rem', alignItems: 'center'}}>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <h1>400 <PotIcon /></h1>
+                    <p>5D: 6H: 54M Left</p>
                     <p>Fee: $220</p>
                     </div>
                 </div>
@@ -265,7 +272,10 @@ const PotCard = () => {
             Super Smash Bros (Wii U)
             </div>
             <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-            <p>JOIN</p>
+            <p>Rules</p>
+            </div>
+            <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            Join
             </div>
         </div>
     );

@@ -99,6 +99,7 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
                 bottom: 0, background: 'rgba(18, 18, 18, 0.85)', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', padding: '1.5rem', alignItems: 'center'}}>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <h1>400 <PotIcon /></h1>
+                    <p>5D: 6H: 54M Left</p>
                     <p>Fee: $220</p>
                     </div>
                 </div>
