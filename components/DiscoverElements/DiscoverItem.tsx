@@ -15,6 +15,7 @@ function PotIcon() {
         height="42"
         fill="white"
         viewBox="0 0 444 491"
+        style={{margin: '0 .75rem 0 0'}}
       >
         <path
           fill="white"
@@ -49,11 +50,11 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
             
 
             .card {
-                height: 240px;
+                height: 300px;
+                overflow: hidden;
+                filter: grayscale(50%);
                 position: relative;
                 display: flex;
-                -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
-                
                 align-items: center;
                 justify-content: center;
                 box-shadow: 0 24px 17px 0 rgb(0 0 0 / 5%), 0 4.5px 6px 0 rgb(0 0 0 / 20%);
@@ -64,14 +65,10 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
 
             h1 {
                 font-size: 3rem;
-                position: absolute;
-                margin-bottom: 24px;
             }
 
             img {
                 object-fit: cover;
-                filter: grayscale(50%);
-                filter: brightness(40%);
             }
 
             h3 {
@@ -98,11 +95,13 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
             `}</style>
             <Link href="pot/hello">
             <div className="card">
-                <img width="100%" height="100%" src="https://www.cnet.com/a/img/MbiDRXBQETPXgQV1ttOQC-w9jNw=/940x0/2018/06/12/79cc03c2-a7c1-4687-9254-adb72a5f55a0/super-smash-bros-ultimate-nintendo.png" />
-                <h1>$400</h1>
-                <div style={{position: 'absolute', bottom: 0, background: 'rgba(18, 18, 18, 0.9)', width: '100%', height: '2rem', display: 'flex', justifyContent: 'space-between', padding: '1.5rem', alignItems: 'center'}}>
-                    <p>Entry Fee:</p>
-                    <p>$220</p>
+                <img width="100%" height="100%" src="https://media.wired.com/photos/5c119aaa1d856b064de8472b/master/pass/SSB.jpg" />
+                <div style={{position: 'absolute', 
+                bottom: 0, background: 'rgba(18, 18, 18, 0.85)', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', padding: '1.5rem', alignItems: 'center'}}>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <h1>400 <PotIcon /></h1>
+                    <p>Fee: $220</p>
+                    </div>
                 </div>
             </div>
             </Link>

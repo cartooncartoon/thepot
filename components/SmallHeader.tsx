@@ -22,7 +22,7 @@ function UpArrow() {
         <path d="M120.027 541.902c26.6 0 53.5-8.8 75.7-27l288.1-234.7 290.899 237c22.301 18.101 49.101 27 75.7 27 34.8 0 69.4-15.1 93.101-44.2 41.899-51.399 34.1-127-17.2-168.8l-366.7-298.8c-44.1-36-107.5-36-151.6 0l-363.8 296.4c-51.4 41.9-59.1 117.5-17.3 168.9 23.8 29.1 58.3 44.2 93.1 44.2z"></path>
         <style jsx>{`
             svg {
-                fill: rgba(255, 255, 255, 0.5);
+                fill: rgba(255, 255, 255, 0.75);
             }
 
             svg:hover {
@@ -40,8 +40,8 @@ function UpArrow() {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="36"
-        height="36"
+        width="32"
+        height="32"
         fill="none"
         viewBox="0 0 18 18"
       >
@@ -52,7 +52,7 @@ function UpArrow() {
         ></path>
         <style jsx>{`
             svg {
-                fill: rgba(255, 255, 255, 0.5);
+                fill: rgba(255, 255, 255, 0.75);
             }
 
             svg:hover {
@@ -68,8 +68,8 @@ function Logo() {
     return (
         <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="42"
-        height="42"
+        width="36"
+        height="36"
         viewBox="0 0 444 491"
       >
         <path
@@ -77,7 +77,7 @@ function Logo() {
         ></path>
         <style jsx>{`
             svg {
-                fill: rgba(255, 255, 255, 0.5);
+                fill: rgba(255, 255, 255, 0.75);
             }
 
             svg:hover {
@@ -94,9 +94,9 @@ const Avi = () => {
         <div className="avi">
             <style jsx>{`
             .avi {
-                width: 42px;
-                height: 42px;
-                background: rgba(255, 255, 255, 0.5);
+                width: 36px;
+                height: 36px;
+                background: rgba(255, 255, 255, 0.75);
                 border-radius: 100%;
             }
             `}</style>
@@ -109,8 +109,8 @@ const Settings = () => {
     return (
         <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="42"
-        height="42"
+        width="36"
+        height="36"
         viewBox="0 0 32 32"
       >
         <path
@@ -120,7 +120,7 @@ const Settings = () => {
 
         <style jsx>{`
             svg {
-                fill: rgba(255, 255, 255, 0.5);
+                fill: rgba(255, 255, 255, 0.75);
             }
 
             svg:hover {
@@ -142,7 +142,7 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                     display: none;
                     justify-content: space-between;
                     align-items: center;
-                    padding: 0 12px 0 12px;
+                    padding: 0 16px 0 16px;
                     border-top-color: rgba(255, 255, 255, 0.1);
                     border-top-style: solid;
                     border-top-width: 1px;
