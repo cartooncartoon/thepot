@@ -29,7 +29,6 @@ const Pot: React.SFC<PotProps> = () => {
             `}</style>
         <PotDesc />
         <PotCard/>
-        <BottomAction />
         </div>
     );
 }
