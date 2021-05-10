@@ -13,6 +13,7 @@ const Discover: React.SFC<DiscoverProps> = () => {
             .discover {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
+                padding-bottom: 8rem;
                 gap: 1rem;
                 overflow: hidden;
             }

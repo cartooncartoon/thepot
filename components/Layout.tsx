@@ -17,7 +17,6 @@ const Layout: React.SFC<LayoutProps> = ({ children }) => {
     return (  
         <div>
             <Header />
-            <BottomAction />
             <SmallHeader />
             <div>
             {children}
