@@ -49,10 +49,10 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
             
 
             .card {
-                height: 340px;
+                height: 200px;
                 position: relative;
                 display: flex;
-                -webkit-filter: grayscale(60%); /* Safari 6.0 - 9.0 */
+                -webkit-filter: grayscale(80%); /* Safari 6.0 - 9.0 */
                 
                 align-items: center;
                 justify-content: center;

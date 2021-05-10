@@ -188,7 +188,8 @@ const PotCard = () => {
                 flex-shrink: 0;
                 position: sticky;
                 top: 72px;
-                max-width: 100%;
+                width: 100%;
+                max-width: 500px;
                 margin: auto;
                 transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(
                     0deg
@@ -209,7 +210,7 @@ const PotCard = () => {
             
 
             .card {
-                height: 340px;
+                height: 240px;
                 position: relative;
                 display: flex;
                 -webkit-filter: grayscale(80%); /* Safari 6.0 - 9.0 */
@@ -225,6 +226,7 @@ const PotCard = () => {
             h1 {
                 font-size: 3rem;
                 position: absolute;
+                margin-bottom: 24px;
             }
 
             img {
@@ -260,17 +262,17 @@ const PotCard = () => {
                     <p>$220</p>
                 </div>
             </div>
-            <div style={{width: '100%', height: '4rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+            <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
             <p>1 v. 1 Death Match</p>
             <p>Challenger: Dukes (1 - 0)</p>
             </div>
-            <div style={{width: '100%', height: '4rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             Super Smash Bros (Wii U)
             </div>
-            <div style={{width: '100%', height: '4rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             65 Days Left
             </div>
-            <div style={{width: '100%', height: '4rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             JOIN
             </div>
         </div>
