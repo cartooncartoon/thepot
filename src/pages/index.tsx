@@ -407,11 +407,19 @@ export default function Home() {
       }
       .navbar {
         display: flex;
+        justify-content: flex-end;
+        margin: 0 0 1rem 0;
+        padding: 2rem 30px 1.20rem 30px;
+        top: 64;
       }
       
       @media (max-width: 900px) {
         .navbar {
-            display: none;
+            display: flex;
+            justify-content: flex-start;
+            margin: 0 0 0 0;
+            padding: 1rem 0 1rem 0;
+            top: 0;
         }
 
         .discover {
@@ -423,12 +431,9 @@ export default function Home() {
       <div 
       className="navbar"
       style={{alignItems: 'center',
-      padding: '2rem 30px 1.20rem 30px',
-      margin: '0 0 1rem 0',
-      justifyContent: 'flex-end', 
       background: 'rgb(18, 18, 18)', 
       zIndex: 99,
-      position: 'sticky', top: 64}}>
+      position: 'sticky', }}>
         <div 
         style={{alignItems: 'center', display: 'flex', overflow: 'auto'}}>
         <div style={{display: 'flex', flexDirection: 'column'}}><MenuItem onClick={() => setGame(!game)}><Joystick /> Game</MenuItem>

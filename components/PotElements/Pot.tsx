@@ -186,6 +186,7 @@ const PotCard = () => {
             <style jsx>{`
             .discoverItem {
                 flex-shrink: 0;
+                height: 100vh;
                 position: sticky;
                 top: 72px;
                 width: 100%;
@@ -204,7 +205,6 @@ const PotCard = () => {
                     );
                 transform-style: preserve-3d;
                 transition: transform 350ms ease, -webkit-transform 350ms ease;
-                margin-bottom: 1rem;
             }
 
             
@@ -244,6 +244,10 @@ const PotCard = () => {
                 margin-bottom: 2rem;
             }
 
+            .menu {
+                height: 100%;
+            }
+
             @media (max-width: 900px) {
                 .discoverItem:hover {
                     transform: none;
@@ -262,6 +266,7 @@ const PotCard = () => {
                     <p>$220</p>
                 </div>
             </div>
+            <div className="menu">
             <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
             <p>1 v. 1 Death Match</p>
             <p>Challenger: Dukes (1 - 0)</p>
@@ -274,6 +279,7 @@ const PotCard = () => {
             </div>
             <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             JOIN
+            </div>
             </div>
         </div>
     );
