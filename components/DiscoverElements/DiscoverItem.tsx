@@ -34,7 +34,7 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
                 height: 340px;
                 position: relative;
                 display: flex;
-                -webkit-filter: grayscale(75%); /* Safari 6.0 - 9.0 */
+                -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
                 
                 align-items: center;
                 justify-content: center;
