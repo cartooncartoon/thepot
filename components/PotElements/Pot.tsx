@@ -189,7 +189,7 @@ const PotCard = () => {
                 flex-shrink: 0;
                 position: sticky;
                 top: 72px;
-                max-width: 500px;
+                max-width: 100%;
                 margin: auto;
                 transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(
                     0deg
