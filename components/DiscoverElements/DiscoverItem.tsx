@@ -32,6 +32,7 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
 
             .card {
                 height: 340px;
+                position: relative;
                 display: flex;
                 -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
                 
