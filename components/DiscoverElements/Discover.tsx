@@ -14,7 +14,7 @@ const Discover: React.SFC<DiscoverProps> = () => {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 1rem;
-                overflow: auto;
+                overflow: hidden;
             }
             
             @media (max-width: 1140px) {

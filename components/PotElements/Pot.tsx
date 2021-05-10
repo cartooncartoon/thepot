@@ -57,7 +57,7 @@ const PotDesc = () => {
                     max-width: 100%;
                     width: 100%;
                     overflow: auto;
-                    height: calc(100vh - 64px);
+                    height: calc(100vh + 275px);
                     box-shadow: none;
                     background: rgb(18, 18, 18);
                 }
@@ -126,7 +126,7 @@ We suggest hosting players save each Game Mode to enable quicker lobby setup.
             </div>
             <div className="description">
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '0 0 0 0', padding: '1rem 2rem 2rem 0'}}>
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', padding: '1rem 0 1rem 1rem'}}>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', padding: '0 0 1rem 1rem'}}>
                 <h1 style={{fontSize: 24, margin: 0}}>Call of Duty: Modern Warfare</h1>
                 <p style={{margin: 0,}}>Game</p>
                 </div>
