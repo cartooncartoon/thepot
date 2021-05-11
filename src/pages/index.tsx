@@ -416,7 +416,7 @@ export default function Home() {
       @media (max-width: 900px) {
         .navbar {
             display: flex;
-            justify-content: flex-start;
+            justify-content: flex-end;
             margin: 0 0 0 0;
             padding: 1rem 0 1rem 0;
             top: 0;

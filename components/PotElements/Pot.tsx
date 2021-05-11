@@ -5,6 +5,67 @@ import Fab from '../Fab';
 export interface PotProps {
     
 }
+
+
+const Join = () => {
+    return (
+        <div className="join">
+            <style jsx>{`
+            .join {
+                display: flex;
+                position: fixed;
+                top: 50%;
+                width: 40rem;
+                justify-content: space-between;
+                flex-direction: column;
+                height: 40rem;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgb(18, 18, 18);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                z-index: 999;
+            }
+
+            .submit_btn {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            input {
+                width: 100%;
+                height: 100%;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .submit_btn:hover {
+                background: rgba(255, 255, 255, 0.2);
+                cursor: pointer;
+            }
+            `}</style>
+            <div>
+            <h1>400</h1>
+            <p>5D: 6H: 54M Left</p>
+            Fee: $220
+            </div>
+            <div 
+                className="submit_btn"
+                style={{width: '100%', height: '15%',
+                alignItems: 'center', justifyContent: 'center',
+                fontSize: '1.5rem', fontWeight: 'bold', 
+                display: 'flex'}}>
+                    SUBMIT
+                </div>
+                <div 
+                className="submit_btn"
+                style={{width: '100%', height: '15%',
+                alignItems: 'center', justifyContent: 'center',
+                fontSize: '1.5rem', fontWeight: 'bold', 
+                display: 'flex'}}>
+                    CLOSE
+                </div>
+        </div>
+    )
+}
  
 const Pot: React.SFC<PotProps> = () => {
     return (
@@ -55,8 +116,7 @@ const PotDesc = () => {
         <div className="post_desc">
             <style jsx>{`
             .post_desc {
-            max-width: 900px;
-            background: rgba(255, 255, 255, 0.01);
+            width: 100%;
             }
 
             .description {
@@ -82,6 +142,10 @@ const PotDesc = () => {
                 }
             }
             
+            
+            h3 {
+                margin: 1rem 0 .25rem 0;
+            }
 
             .img_wrapper {
                 position: relative;
@@ -89,9 +153,9 @@ const PotDesc = () => {
             }
 
             .post_write {
-                height: 100%;
                 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
                 background: rgba(255, 255, 255, .02);
+                padding-bottom: 2rem;
             }
 
             img {
@@ -104,6 +168,7 @@ const PotDesc = () => {
 
             p {
                 font-size: 1.10rem;
+                line-height: 2rem;
             }
 
             .JOIN_btn {
@@ -117,70 +182,44 @@ const PotDesc = () => {
             `}</style>
             <div className="post_write">
             <div className="rules" style={{padding: '2rem'}}>
-            <h3>Match Details</h3>
-            <p>
-                Cash Pool Split:
+                <h3>Prizes 🏆: </h3>
+                🥇 $400 <br />
+                🥈 $200 <br />
+                🥉 $50  <br />
+            <h3>Game Settings:</h3> Unless otherwise specified, the following settings must be set to following:
+<ul>
+<li>Fatigue: ON</li>
+<li>Even Teams: OFF</li>
+<li>Game Speed: NORMAL</li>
+<li>Weather: OFF</li>
+</ul>
+<h3>Lag/Settings/Teams:</h3>After 2 minutes of gameplay any complaints on lag, pre-game settings, or banned teams will not be taken into consideration. No exceptions. (Note: connection is much better if you use a LAN cable instead of WiFi.)
 
-1st Place: 44% | 2nd Place: 14% | 3rd Place: 12% | 4th Place: 10% | 5th Place: 8% | 6th Place: 6% | 7th Place: 4% | 8th Place: 2%
+<h3>Disconnections:</h3> In the event of a disconnection, you and your opponent must finish the remaining time of the match, keeping the score the same as it was in the game that got disconnected. i.e. If the disconnection occurred in at the end of the 1st quarter, the new game should be played until the end of the 3rd quarter. We highly recommend recording video of all game footage in case of a dispute.
 
-Cash pool fluctuates by each tournament, dependent on entrants and entry fees. Visit #registration in the Finesse Gaming Club Discord Server for up-to-date cash pools.
+If you can't continue the match within 15 minutes of disconnecting, Players' Lounge may rule on the match using our discretion. If you were losing, you will be given the loss. If you were winning, the match may be canceled or you may be given the loss depending on the circumstances. It is up to the player who was losing to reach out and attempt to play the match again. If you were losing and no attempt is made to play again within 15 minutes, you will lose the match.
 
-Ruleset:
+<h3>Show Playbook:</h3> Users must show and confirm playbooks before starting the match. Do not start the match until you’ve confirmed your opponents playbooks.
 
-Bracket Type: Single Elimination - Best of Three | Style: 1 v 1 | Stock: 3 Lives | Time Limit: 8:00 | Items: Off | Damage Handicap: Off | Stages (Random): Final Destination, Battlefield, Pokémon Stadium 2, Smashville, and Town and City | Stage Hazards: Off | Launch Rate: 1.0x | Show Damage: Yes | amiibo: Off | Spirits: Off | Mii Fighters: Not Allowed
+No Customs: The use of custom playbooks is NOT allowed. The actual "West Coast" and "Multiple-D" Playbooks are allowed. Custom playbooks show up as "West Coast" and "Multiple-D" in the pre-game match screen. If you get caught using a Custom playbook claiming to use the real "West Coast" or "Multiple-D" playbook, you will either forfeit or have the match canceled. If you ready up to play against "West Coast" or "Multiple-D", and suspect your opponent is using a Custom at any time, you must quit the match immediately. You need sufficient evidence of your opponent running a play/formation that is not in the "West Coast" and "Multiple-D" playbook to support your claim.
 
-The loser of the finals will get 3rd place, while the winner of the finals will get 2nd place. In order for the winner of the finals to get 1st place, they must win against the Champion in a best of five matchup -- the Champion won't be on the bracket. In the case there is no Champion or a Champion fails to compete, the losers of the semi-finals compete for 3rd place, the loser of the finals get 2nd place, and the winner of the finals get 1st place.
+<h3>Accelerated vs Chew clock:</h3>
+Accelerated clock is a PRE-game setting that is set by the match host. This will cause the play clock to consistently run down to 15/20/25 seconds for each player throughout the entire match. NOTE - the clock automatically runs time off in All-Madden difficulty after selecting a play or during a hurry-up offense. This is NOT Accelerated clock.
 
-If a player disconnects or lags constantly, they will get one chance to correct this issue. If the issue persists, they will be disqualified and their opponent will be given an automatic win. 2. If a player isn’t available to compete within three minutes of their match being ready, they will be disqualified and their opponent will be given an automatic win. 3. If a player fails to join the tournament (no-show), they will be disqualified and their opponent will be given an automatic win.
-            </p>
-            </div>
-            <div className="description">
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '0 0 0 0', padding: '1rem 2rem 2rem 0'}}>
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', padding: '0 0 1rem 1rem'}}>
-                <h1 style={{fontSize: 24, margin: 0}}>Call of Duty: Modern Warfare</h1>
-                <p style={{margin: 0,}}>Game</p>
-                </div>
-                <div style={{display: 'flex', 
-                background: 'rgb(18, 18, 18)',
-                width: '100vw',
-                flexDirection: 'column', alignItems: 'flex-start', padding: '1rem 0 1rem 1rem'}}>
-                <h1 style={{fontSize: 24, margin: 0}}>Tourney</h1>
-                <p style={{margin: 0,}}>Game Type</p>
-                </div>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '1rem 0 0 0', padding: '1rem 0 1rem 1rem'}}>
-                <h1 style={{fontSize: 24, margin: 0}}>1,552,485 USD</h1>
-                <p style={{margin: 0,}}>Pot Amount</p>
-                </div>
-                <div style={{display: 'flex', 
-                background: 'rgb(18, 18, 18)',
-                width: '100vw',
-                flexDirection: 'column', alignItems: 'flex-start', padding: '1rem 0 1rem 1rem'}}>
-                <h1 style={{fontSize: 24, margin: 0}}>2,279</h1>
-                <p style={{margin: 0}}>Players</p>
-                </div>
-                <div style={{display: 'flex', flexDirection: 'column', 
-                padding: '1rem 0 1rem 1rem',
-                alignItems: 'flex-start', margin: '1rem 0 0 0',}}>
-                <h1 style={{fontSize: 24, margin: 0}}>65 days</h1>
-                <p style={{margin: 0}}>Left to Join</p>
-                </div>
-                <div style={{display: 'flex', 
-                background: 'rgb(18, 18, 18)',
-                width: '100vw',
-                flexDirection: 'column', alignItems: 'flex-start', padding: '1rem 0 1rem 1rem'}}>
-                <h1 style={{fontSize: 24, margin: 0}}>20 USD</h1>
-                <p style={{margin: 0}}>Fee</p>
-                </div>
-                </div>
+Chew clock is an IN-game option that's available to anyone picking an offensive play. Chew will bring the playclock down to 10 seconds after an offensive play is selected. It is legal to Chew at any time and is not disputable unless otherwise specified.
+
+<h3>Pause Timer:</h3> If you are "Kicked for Excessive Griefing" when you are losing a match or the game is tied, you automatically lose. If you are kicked when you are winning a match, the match will be cancelled. If you're kicked prior to the end of the first quarter of game play and the score is tied, we will consider it a non issue and the game should be replayed.
+
+<h3>Online Squads Only:</h3> Matches must be played with Online Squads only. You are not allowed to import a team or a franchise.
             </div>
             </div>
-            
         </div>
     );
 }
 
 
 const PotCard = () => {
+    const [join, setJoin] = React.useState(false);
     return (
         <div className="discoverItem">
             <style jsx>{`
@@ -188,24 +227,12 @@ const PotCard = () => {
             .discoverItem {
                 width: 100%;
                 max-width: 500px;
+                position: sticky;
+                top: calc(72px + 24px);
                 margin-left: auto;
                 margin-right: auto;
                 flex-shrink: 0;
                 height: 100%;
-                transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(
-                    0deg
-                    ) rotateY(
-                    0deg
-                    ) rotateZ(
-                    0deg
-                    ) skew(
-                    0deg
-                    , 
-                    0deg
-                    );
-                transform-style: preserve-3d;
-                transition: transform 350ms ease, -webkit-transform 350ms ease;
-                margin-bottom: 1rem;
             }
 
             
@@ -227,6 +254,10 @@ const PotCard = () => {
                 font-size: 3rem;
             }
 
+            .rules_btn {
+                display: none;
+            }
+
             img {
                 object-fit: cover;
             }
@@ -234,9 +265,6 @@ const PotCard = () => {
             h3 {
                 font-weight: 600;
                 font-size: 1rem;
-            }
-            .discoverItem:hover {
-                transform: scale(1.02);
             }
 
             .info {
@@ -246,6 +274,10 @@ const PotCard = () => {
             @media (max-width: 900px) {
                 .discoverItem:hover {
                     transform: none;
+                }
+
+                .rules_btn {
+                    display: flex;
                 }
 
                 .info {
@@ -264,6 +296,7 @@ const PotCard = () => {
                     </div>
                 </div>
             </div>
+            <div style={{height: 'calc(100% - 72px)'}}>
             <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
             <p>1 v. 1 Death Match</p>
             <p>Challenger: Dukes (1 - 0)</p>
@@ -271,12 +304,19 @@ const PotCard = () => {
             <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             Super Smash Bros (Wii U)
             </div>
-            <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+            <div 
+            className="rules_btn"
+            style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.05)', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
             <p>Rules</p>
             </div>
-            <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div 
+            onClick={() => setJoin(!join)}
+            style={{width: '100%', 
+            height: '6rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             Join
             </div>
+            </div>
+            {join && <Join />}
         </div>
     );
 }
