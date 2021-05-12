@@ -17,10 +17,10 @@ const Layout: React.SFC<LayoutProps> = ({ children }) => {
     return (  
         <div>
             <Header />
-            <SmallHeader />
             <div>
             {children}
             </div>
+            <SmallHeader />
             <Footer />
         </div>
     );

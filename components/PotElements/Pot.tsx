@@ -7,32 +7,59 @@ export interface PotProps {
 }
 
 
-const Join = () => {
+const Join = ({setJoin}: any) => {
     return (
         <div className="join">
             <style jsx>{`
             .join {
                 display: flex;
+                z-index: 2;
                 position: fixed;
                 top: 50%;
-                width: 40rem;
+                width: 50vw;
+                min-height: 600px;
                 justify-content: space-between;
                 flex-direction: column;
-                height: 40rem;
+                height: 90vh;
                 left: 50%;
                 transform: translate(-50%, -50%);
                 background: rgb(18, 18, 18);
                 border: 1px solid rgba(255, 255, 255, 0.1);
-                z-index: 999;
+            }
+
+            .info {
+                padding: 2rem;
+            }
+
+            @media (max-width: 900px) {
+                .join {
+                    width: 100vw;
+                    height: 100vh;
+                    z-index: 99;
+                }
             }
 
             .submit_btn {
                 background: rgba(255, 255, 255, 0.1);
             }
 
+            h1 {
+                font-size: 3rem;
+            }
+
+            p {
+                margin: 1rem 0 0 0;
+            }
+
             input {
                 width: 100%;
-                height: 100%;
+                font-size: 1.25rem;
+                color: white;
+                margin: 1rem 0 1rem 0;
+                background: rgba(255, 255, 255, .1);
+                outline: none;
+                border: none;
+                height: 4rem;
                 padding-left: 1rem;
                 padding-right: 1rem;
             }
@@ -42,32 +69,31 @@ const Join = () => {
                 cursor: pointer;
             }
             `}</style>
-            <div>
-            <h1>400</h1>
-            <p>5D: 6H: 54M Left</p>
-            Fee: $220
+            <div className="info">
+            <h1>Join</h1>
+            <p>You're one step forward towards the island of the beast! What we need from you is to sign up with your Discord 
+            name and Email address to complete the transaction. </p>
+            <input placeholder="Discord Username" />
+            <input placeholder="email@example.com" />
+            <p>By submiting you agree to the rules of the match and the site.</p>
             </div>
-            <div 
-                className="submit_btn"
-                style={{width: '100%', height: '15%',
-                alignItems: 'center', justifyContent: 'center',
-                fontSize: '1.5rem', fontWeight: 'bold', 
-                display: 'flex'}}>
-                    SUBMIT
-                </div>
+            <div style={{display: 'flex'}}>
                 <div 
                 className="submit_btn"
-                style={{width: '100%', height: '15%',
+                onClick={() => setJoin(false)}
+                style={{width: '100%', height: '15vh',
                 alignItems: 'center', justifyContent: 'center',
                 fontSize: '1.5rem', fontWeight: 'bold', 
                 display: 'flex'}}>
                     CLOSE
+                </div>
                 </div>
         </div>
     )
 }
  
 const Pot: React.SFC<PotProps> = () => {
+    const [join, setJoin] = React.useState(false);
     return (
         <div className="pot">
             <style jsx>{`
@@ -76,6 +102,7 @@ const Pot: React.SFC<PotProps> = () => {
                 justify-items: center;
                 grid-template-columns: repeat(2, 1fr);
                 gap: 2rem;
+                position: relative;
                 height: 100%;
                 padding: 24px;
                 margin: auto;
@@ -89,7 +116,8 @@ const Pot: React.SFC<PotProps> = () => {
             }
             `}</style>
         <PotDesc />
-        <PotCard/>
+        <PotCard setJoin={setJoin} join={join}/>
+        {join && <Join setJoin={setJoin}/>}
         </div>
     );
 }
@@ -117,6 +145,7 @@ const PotDesc = () => {
             <style jsx>{`
             .post_desc {
             width: 100%;
+            position: relative;
             }
 
             .description {
@@ -182,6 +211,7 @@ const PotDesc = () => {
             `}</style>
             <div className="post_write">
             <div className="rules" style={{padding: '2rem'}}>
+                <h1>Match Details</h1>
                 <h3>Prizes 🏆: </h3>
                 🥇 $400 <br />
                 🥈 $200 <br />
@@ -218,8 +248,7 @@ Chew clock is an IN-game option that's available to anyone picking an offensive 
 }
 
 
-const PotCard = () => {
-    const [join, setJoin] = React.useState(false);
+const PotCard = ({setJoin, join}: any) => {
     return (
         <div className="discoverItem">
             <style jsx>{`
@@ -258,13 +287,26 @@ const PotCard = () => {
                 display: none;
             }
 
+            .join_btn {
+                background: rgba(255, 255, 255, 0.05);
+            }
+
             img {
                 object-fit: cover;
+            }
+
+            .join_btn:hover {
+                cursor: pointer;
+                background: rgba(255, 255, 255, 0.075);
             }
 
             h3 {
                 font-weight: 600;
                 font-size: 1rem;
+            }
+
+            h_menu {
+                height: 100%;
             }
 
             .info {
@@ -276,8 +318,18 @@ const PotCard = () => {
                     transform: none;
                 }
 
+                .discoverItem {
+                    top: 0;
+                    height: calc(100vh - 72px);
+                    position: relative;
+                }
+
                 .rules_btn {
                     display: flex;
+                }
+
+                .join_btn {
+                    background: rgba(255, 255, 255, 0.025);
                 }
 
                 .info {
@@ -296,7 +348,7 @@ const PotCard = () => {
                     </div>
                 </div>
             </div>
-            <div style={{height: 'calc(100% - 72px)'}}>
+            <div className="h_menu">
             <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
             <p>1 v. 1 Death Match</p>
             <p>Challenger: Dukes (1 - 0)</p>
@@ -310,13 +362,13 @@ const PotCard = () => {
             <p>Rules</p>
             </div>
             <div 
+            className="join_btn"
             onClick={() => setJoin(!join)}
             style={{width: '100%', 
-            height: '6rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            height: '6rem',  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             Join
             </div>
             </div>
-            {join && <Join />}
         </div>
     );
 }

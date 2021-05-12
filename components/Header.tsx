@@ -288,7 +288,7 @@ const Header: React.SFC<HeaderProps> = () => {
                     border-bottom-width: 1px;
                     height: 4.5rem;
                     position: sticky;
-                    z-index: 999;
+                    z-index: 1;
                     top: 0px;
                     background: rgb(18, 18, 18);
                 }

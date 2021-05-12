@@ -409,8 +409,9 @@ export default function Home() {
         display: flex;
         justify-content: flex-end;
         margin: 0 0 1rem 0;
+        z-index: 1;
         padding: 2rem 30px 1.20rem 30px;
-        top: 64;
+        top: 72px;
       }
       
       @media (max-width: 900px) {
@@ -432,7 +433,7 @@ export default function Home() {
       className="navbar"
       style={{alignItems: 'center',
       background: 'rgb(18, 18, 18)', 
-      zIndex: 99,
+      zIndex: 1,
       position: 'sticky', }}>
         <div 
         style={{alignItems: 'center', display: 'flex', overflow: 'auto'}}>

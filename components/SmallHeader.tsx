@@ -148,7 +148,7 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                     border-top-width: 1px;
                     height: 4.5rem;
                     position: fixed;
-                    z-index: 999;
+                    z-index: 1;
                     bottom: 0px;
                     background: rgb(18, 18, 18);
                 }
@@ -156,6 +156,7 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                 @media (max-width: 900px) {
                     .small_header {
                         display: flex;
+                        z-index: 1;
                     }
                 }
             `}</style>
