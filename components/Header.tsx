@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import { signIn, signOut, useSession } from 'next-auth/client'
-import { Session } from 'next-auth';
 
 
 export interface HeaderProps {
@@ -11,7 +10,6 @@ export interface HeaderProps {
     dropdown: boolean;
     setDropdown: React.Dispatch<React.SetStateAction<boolean>>;
     withdraw: boolean;
-    session: Session;
 }
 
 function GoogleIcon() {
@@ -411,7 +409,7 @@ const Header: React.SFC<HeaderProps> = ({setWithdraw, setProfile}) => {
                 <NavLi>WATCH</NavLi>
             {!session && <li onClick={() => signIn("discord")}>LOGIN</li>}    
            {session && <li onMouseEnter={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)}>
-            {session.user.name}#{session.user.id}
+            {session?.user?.name}#{session?.user?.id}
             <div style={{border: '1px solid rgba(255, 255, 255, 0.2)', 
             fontSize: '.75rem',
             padding: '.5rem', margin: '0 0 0 .75rem'}}>$100,000.55</div>
