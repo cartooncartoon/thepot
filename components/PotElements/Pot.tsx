@@ -13,7 +13,7 @@ const Join = ({setJoin}: any) => {
             <style jsx>{`
             .join {
                 display: flex;
-                z-index: 2;
+                z-index: 99;
                 position: fixed;
                 top: 50%;
                 width: 50vw;

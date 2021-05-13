@@ -1,8 +1,17 @@
 import React from 'react'
 import Link from 'next/link'
+import { signIn, signOut, useSession } from 'next-auth/client'
+import { Session } from 'next-auth';
+
 
 export interface HeaderProps {
-    
+    setWithdraw: React.Dispatch<React.SetStateAction<boolean>>;
+    profile: boolean;
+    setProfile: React.Dispatch<React.SetStateAction<boolean>>;
+    dropdown: boolean;
+    setDropdown: React.Dispatch<React.SetStateAction<boolean>>;
+    withdraw: boolean;
+    session: Session;
 }
 
 function GoogleIcon() {
@@ -207,11 +216,96 @@ const Login = ({setLogin}: any) => {
         </div>
     )
 }
+
+const Dropdown = ({setWithdraw, setProfile, setDropdown}: any) => {
+    return (
+        <div 
+        onMouseEnter={() => setDropdown(true)}
+        onMouseLeave={() => setDropdown(false)}
+        className="dropdown">
+            <style jsx>{`
+            .dropdown {
+                width: 18rem;
+                height: 24rem;
+                background: rgb(18, 18, 18);
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                justify-content: space-between;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                top: 72px;
+                right: 24px;
+                z-index: 3;
+            }
+
+            .submit_btn {
+                background: rgba(255, 255, 255, 0.025);
+            }
+
+            input {
+                width: 100%;
+                height: 100%;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .submit_btn:hover {
+                background: rgba(255, 255, 255, 0.05);
+                cursor: pointer;
+            }
+            `}</style>
+            <div 
+                onClick={() => setProfile(true)}
+                className="submit_btn"
+                style={{width: '100%', 
+                height: '25%',
+                alignItems: 'center', justifyContent: 'center',
+                fontSize: '1rem', 
+                display: 'flex'}}>
+                    Deposit
+                </div>
+            <div 
+                onClick={() => setWithdraw(true)}
+                className="submit_btn"
+                style={{width: '100%', height: '25%',
+                background: 'rgba(255, 255, 255, 0.005)',
+                alignItems: 'center', justifyContent: 'center',
+                fontSize: '1rem', 
+                display: 'flex'}}>
+                    Withdrawl
+                </div>
+                <div 
+                className="submit_btn"
+                style={{width: '100%', height: '25%',
+                alignItems: 'center', justifyContent: 'center',
+                fontSize: '1rem', 
+                display: 'flex'}}>
+                    Support
+                </div>           
+            <div 
+                className="submit_btn"
+                onClick={() => signOut()}
+                style={{width: '100%', height: '25%',
+                background: 'rgba(255, 255, 255, 0.005)',
+                alignItems: 'center', justifyContent: 'center',
+                fontSize: '1rem', 
+                display: 'flex'}}>
+                    Log Out
+                </div>
+        </div>
+    )
+}
+
+
+
  
-const Header: React.SFC<HeaderProps> = () => {
+const Header: React.SFC<HeaderProps> = ({setWithdraw, setProfile}) => {
     const [discover, setDiscover] = React.useState(true);
+    const [ session, loading ] = useSession();
     const [leaderboard, setLeaderboard] = React.useState(false);
     const [login, setLogin] = React.useState(false)
+    const [dropdown, setDropdown] = React.useState(false);
+    console.log(session);
     return (
         <div className="header">
             <style jsx>{`
@@ -238,6 +332,8 @@ const Header: React.SFC<HeaderProps> = () => {
                     display: flex;
                     align-items: center;
                     font-size: 16px;
+                    position: relative;
+                    z-index: 1;
                     padding: 0 24px 0 24px;
                     line-height: 20.7px;
                     font-family: inherit;
@@ -277,7 +373,6 @@ const Header: React.SFC<HeaderProps> = () => {
 
                 .header {
                     width: 100%;
-                    overflow: hidden;
                     display: flex;
                     overflow: hidden;
                     justify-content: space-between;
@@ -288,7 +383,7 @@ const Header: React.SFC<HeaderProps> = () => {
                     border-bottom-width: 1px;
                     height: 4.5rem;
                     position: sticky;
-                    z-index: 1;
+                    z-index: 3;
                     top: 0px;
                     background: rgb(18, 18, 18);
                 }
@@ -314,12 +409,19 @@ const Header: React.SFC<HeaderProps> = () => {
                 <NavLi>SEARCH</NavLi>
                 <NavLi onClick={() => {setDiscover(true); setLeaderboard(false)}} active={discover}>DISCOVER</NavLi>
                 <NavLi>WATCH</NavLi>
-            <li onClick={() => setLogin(!login)}>
-                LOGIN
-            </li>
+            {!session && <li onClick={() => signIn("discord")}>LOGIN</li>}    
+           {session && <li onMouseEnter={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)}>
+            {session.user.name}#{session.user.id}
+            <div style={{border: '1px solid rgba(255, 255, 255, 0.2)', 
+            fontSize: '.75rem',
+            padding: '.5rem', margin: '0 0 0 .75rem'}}>$100,000.55</div>
+            </li> }
             </ul>
             </div>
             {login && <Login setLogin={setLogin} />}
+            {dropdown && <Dropdown 
+            setWithdraw={setWithdraw}
+            setDropdown={setDropdown} setProfile={setProfile}/>}
         </div>
     );
 }
