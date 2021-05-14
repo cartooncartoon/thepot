@@ -20,6 +20,7 @@ export default NextAuth({
           token = {
             ...token,
             id: profile.discriminator,
+            uid: profile.id,
           }
           console.log(profile);
         }
@@ -28,6 +29,7 @@ export default NextAuth({
       session: async (session, token) => {
         if (token) {
           session.user.id = token.id;
+          session.user.uid = token.uid;
         }
         return session;
       }

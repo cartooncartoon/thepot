@@ -146,6 +146,7 @@ const PotDesc = () => {
             .post_desc {
             width: 100%;
             position: relative;
+            animation: fadeInText 300ms 0ms forwards;
             }
 
             .description {
@@ -208,6 +209,16 @@ const PotDesc = () => {
                 background: rgba(255, 255, 255, 0.2);
                 cursor: pointer;
             }
+
+            @keyframes fadeInText {
+                from {
+                  transform: translate(0%, 10%);
+                  opacity: 0;
+                } to {
+                  transform: translate(0%, 0%);
+                  opacity: 1;
+                }
+              }
             `}</style>
             <div className="post_write">
             <div className="rules" style={{padding: '2rem'}}>
@@ -260,9 +271,20 @@ const PotCard = ({setJoin, join}: any) => {
                 top: calc(72px + 24px);
                 margin-left: auto;
                 margin-right: auto;
+                animation: fadeInText 300ms 0ms forwards;
                 flex-shrink: 0;
                 height: 100%;
             }
+
+            @keyframes fadeInText {
+                from {
+                  transform: translate(0%, -10%);
+                  opacity: 0;
+                } to {
+                  transform: translate(0%, 0%);
+                  opacity: 1;
+                }
+              }
 
             
 

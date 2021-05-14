@@ -31,18 +31,6 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
             <style jsx>{`
             .discoverItem {
                 width: 100%;
-                transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(
-                    0deg
-                    ) rotateY(
-                    0deg
-                    ) rotateZ(
-                    0deg
-                    ) skew(
-                    0deg
-                    , 
-                    0deg
-                    );
-                transform-style: preserve-3d;
                 transition: transform 350ms ease, -webkit-transform 350ms ease;
                 margin-bottom: 1rem;
             }

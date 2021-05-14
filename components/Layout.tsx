@@ -55,13 +55,22 @@ function NextIcon() {
 const Profile = ({setProfile}: any) => {
     const [paymentSelect, setPaymentSelect] = React.useState(false);
     return (
-        <div className="profile">
+        <div className="overlay">
             <style jsx>{`
+            .overlay {
+                position: fixed;
+                top: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 3;
+                background: rgba(0, 0, 0, 0.4);
+            }
+
             .profile {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                position: fixed;
+                position: absolute;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
@@ -70,6 +79,7 @@ const Profile = ({setProfile}: any) => {
                 z-index: 4;
                 background: rgb(18, 18, 18);
                 border: 1px solid rgba(255, 255, 255, 0.1);
+                animation: fadeInText 300ms 0ms forwards;
             }
 
             .submit_btn {
@@ -103,7 +113,18 @@ const Profile = ({setProfile}: any) => {
                 background: rgba(255, 255, 255, 0.1);
                 cursor: pointer;
             }
+
+            @keyframes fadeInText {
+                from {
+                  transform: translate(-50%, -55%);
+                  opacity: 0;
+                } to {
+                  transform: translate(-50%, -50%);
+                  opacity: 1;
+                }
+              }
             `}</style>
+        <div className="profile">
             {paymentSelect ||
             <div style={{padding: '2rem'}}>
             <div className="payment_box">$10 <CheckIcon /></div>
@@ -139,6 +160,7 @@ const Profile = ({setProfile}: any) => {
                 display: 'flex'}}>
                     Close
                 </div> 
+        </div>
         </div>
     )
 }

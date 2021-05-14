@@ -404,7 +404,6 @@ const Header: React.SFC<HeaderProps> = ({setWithdraw, setProfile}) => {
             </div>
             <div style={{display: 'flex', alignItems: 'center'}}>
             <ul style={{display: 'flex'}}>
-                <NavLi>SEARCH</NavLi>
                 <NavLi onClick={() => {setDiscover(true); setLeaderboard(false)}} active={discover}>DISCOVER</NavLi>
                 <NavLi>WATCH</NavLi>
             {!session && <li onClick={() => signIn("discord")}>LOGIN</li>}    

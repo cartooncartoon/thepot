@@ -407,12 +407,26 @@ const Discover: React.SFC<DiscoverProps> = () => {
                 overflow: hidden;
             }
 
+            .discover:nth-child(2) {
+              animation: fadeInText 300ms forwards;
+            }
+
+            @keyframes fadeInText {
+              from {
+                transform: translate(0%, 10%);
+                opacity: 0;
+              } to {
+                transform: translate(0%, 0%);
+                opacity: 1;
+              }
+            }
+
             .navbar {
                 display: flex;
                 justify-content: flex-end;
                 margin: 0 0 1rem 0;
                 z-index: 1;
-                padding: 2rem 30px 1.20rem 30px;
+                padding: 2rem 0 1.20rem 0;
                 top: 72px;
               }
               
@@ -440,6 +454,8 @@ const Discover: React.SFC<DiscoverProps> = () => {
                     gap: 1rem;
                 }
             }
+
+            
             `}</style>
             <div 
       className="navbar"
