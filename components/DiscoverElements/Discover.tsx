@@ -395,7 +395,14 @@ const GTDropdown = ({setGT}: any) => {
 const Discover: React.SFC<DiscoverProps> = () => {
     const [game, setGame] = React.useState(false);
     const [gt, setGT] = React.useState(false);
-    const [filter, setFilter] = React.useState(false);  
+    const [filter, setFilter] = React.useState(false);
+    
+   const DI = () => {
+    for (let index = 0; index < 5; index++) {
+      return <DiscoverItem />
+    }
+  }
+  
     return (
         <div>
             <style jsx>{`
@@ -407,19 +414,6 @@ const Discover: React.SFC<DiscoverProps> = () => {
                 overflow: hidden;
             }
 
-            .discover:nth-child(2) {
-              animation: fadeInText 300ms forwards;
-            }
-
-            @keyframes fadeInText {
-              from {
-                transform: translate(0%, 10%);
-                opacity: 0;
-              } to {
-                transform: translate(0%, 0%);
-                opacity: 1;
-              }
-            }
 
             .navbar {
                 display: flex;

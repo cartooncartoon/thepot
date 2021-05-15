@@ -35,6 +35,7 @@ const Join = ({setJoin}: any) => {
                 .join {
                     width: 100vw;
                     height: 100vh;
+                    height: -webkit-fill-available;
                     z-index: 99;
                 }
             }
