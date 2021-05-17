@@ -169,75 +169,113 @@ const Profile = ({setProfile}: any) => {
 const Withdraw = ({setWithdraw}: any) => {
     const [paymentSelect, setPaymentSelect] = React.useState(false);
     return (
-        <div className="profile">
-            <style jsx>{`
-            .profile {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 50vw;
-                height: 85vh;
-                z-index: 4;
-                background: rgb(18, 18, 18);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-            }
+        <div className="overlay">
+        <style jsx>{`
+        .overlay {
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 3;
+            background: rgba(0, 0, 0, 0.4);
+        }
 
-            .submit_btn {
-                background: rgba(255, 255, 255, 0.025);
-                height: 7rem;
-            }
+        .profile {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 85vh;
+            z-index: 4;
+            background: rgb(18, 18, 18);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInText 300ms 0ms forwards;
+        }
 
-            input {
-                width: 100%;
-                height: 10vh;
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
+        .submit_btn {
+            background: rgba(255, 255, 255, 0.025);
+            height: 7rem;
+        }
 
-            .payment_box {
-                font-size: 1.5rem;
-                padding: 1.5rem;
-                margin-top: 1rem;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-            }
+        input {
+            width: 100%;
+            height: 10vh;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
 
-            .payment_box:hover {
-                cursor: pointer;
-                border: 1px solid rgba(255, 255, 255, 1);
-            }
+        .payment_box {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-            .submit_btn:hover {
-                background: rgba(255, 255, 255, 0.1);
-                cursor: pointer;
+        .payment_box:hover {
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 1);
+        }
+
+        .submit_btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        @keyframes fadeInText {
+            from {
+              transform: translate(-50%, -55%);
+              opacity: 0;
+            } to {
+              transform: translate(-50%, -50%);
+              opacity: 1;
             }
-            `}</style>
-            {paymentSelect ||
-            <div style={{padding: '2rem'}}>
-            <div className="payment_box">$10</div>
-            <div className="payment_box">$25</div>
-            <div className="payment_box">$50</div>
-            <div contentEditable className="payment_box">$XX</div>
-            <p 
-            style={{display: 'flex', justifyContent: 'flex-end', 
-            alignItems: 'center', cursor: 'pointer',
-            margin: '2rem 0 0 0'}}
-            >Continue <NextIcon /></p>
-            </div>
-            }
-                <div 
-                onClick={() => setWithdraw(false)}
-                className="submit_btn"
-                style={{width: '100%',
-                alignItems: 'center', justifyContent: 'center',
-                fontSize: '1.5rem',
-                display: 'flex'}}>
-                    Close
-                </div> 
+          }
+        `}</style>
+    <div className="profile">
+        {paymentSelect ||
+        <div style={{padding: '2rem'}}>
+        <div className="payment_box">$10 <CheckIcon /></div>
+        <div className="payment_box">$25</div>
+        <div className="payment_box">$50</div>
+        <div contentEditable className="payment_box">$XX</div>
+        <p 
+        style={{display: 'flex', justifyContent: 'flex-end', 
+        alignItems: 'center', cursor: 'pointer',
+        margin: '2rem 0 0 0'}}
+        onClick={() => setPaymentSelect(true)}>Continue <NextIcon /></p>
         </div>
+        }
+
+        {paymentSelect &&
+        <div style={{padding: '2rem'}}>
+        <p 
+        style={{display: 'flex',
+        alignItems: 'center', cursor: 'pointer',
+        }}
+        onClick={() => setPaymentSelect(false)}><NextIcon /> Go Back</p> 
+        <div className="payment_box">Google Pay</div>
+        <div className="payment_box">Apple Pay</div>
+        <div className="payment_box">PayPal</div>
+        </div>
+        }
+            <div 
+            onClick={() => setWithdraw(false)}
+            className="submit_btn"
+            style={{width: '100%',
+            alignItems: 'center', justifyContent: 'center',
+            fontSize: '1.5rem',
+            display: 'flex'}}>
+                Close
+            </div> 
+    </div>
+    </div>
     )
 }
  

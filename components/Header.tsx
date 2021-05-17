@@ -411,7 +411,7 @@ const Header: React.SFC<HeaderProps> = ({setWithdraw, setProfile}) => {
             {session?.user?.name}#{session?.user?.id}
             <div style={{border: '1px solid rgba(255, 255, 255, 0.2)', 
             fontSize: '.75rem',
-            padding: '.5rem', margin: '0 0 0 .75rem'}}>$100,000.55</div>
+            padding: '.5rem', margin: '0 0 0 .75rem'}}>$1000.55</div>
             </li> }
             </ul>
             </div>

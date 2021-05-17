@@ -5,35 +5,152 @@ export interface SmallHeaderProps {
     
 }
 
-function UpArrow() {
-    return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="42"
-        height="42"
-        x="0"
-        y="0"
-        enableBackground="new 0 0 970.504 970.503"
-        version="1.1"
-        viewBox="0 0 970.504 970.503"
-        xmlSpace="preserve"
-      >
-        <path d="M120.027 962.802c26.6 0 53.5-8.801 75.7-27l288.1-234.7 290.899 237c22.301 18.1 49.101 27 75.7 27 34.8 0 69.4-15.101 93.101-44.2 41.899-51.4 34.1-127-17.2-168.8l-366.7-298.8c-44.1-36-107.5-36-151.6 0l-363.8 296.5c-51.4 41.8-59.1 117.399-17.3 168.8 23.8 29.1 58.3 44.2 93.1 44.2z"></path>
-        <path d="M120.027 541.902c26.6 0 53.5-8.8 75.7-27l288.1-234.7 290.899 237c22.301 18.101 49.101 27 75.7 27 34.8 0 69.4-15.1 93.101-44.2 41.899-51.399 34.1-127-17.2-168.8l-366.7-298.8c-44.1-36-107.5-36-151.6 0l-363.8 296.4c-51.4 41.9-59.1 117.5-17.3 168.9 23.8 29.1 58.3 44.2 93.1 44.2z"></path>
-        <style jsx>{`
-            svg {
-                fill: rgba(255, 255, 255, 0.75);
-            }
+const Profile = ({setProfile}: any) => {
+  return (
+    <div className="profile">
+      <style jsx>{`
+      .profile {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: -webkit-fill-available;
+        width: 100vw;
+        background: rgb(18, 18, 18);
+      }
 
-            svg:hover {
-                fill: rgba(255, 255, 255, 1);
-            }
+      .submit_btn {
+        background: rgba(255, 255, 255, 0.1);
+    }
 
-        `}</style>
-      
-      </svg>
-    );
+    .h_menu {
+      height: 100%;
+      min-height: 300px;
+      display: grid;
   }
+
+    input {
+        width: 100%;
+        height: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .submit_btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+    }
+      `}</style>
+      <div className="h_menu">
+            <div
+            style={{width: '100%', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+            <p>1 v. 1 Death Match</p>
+            </div>
+            <div 
+            style={{width: '100%', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            Super Smash Bros (Wii U)
+            </div>
+            <div 
+            className="rules_btn"
+            style={{width: '100%', background: 'rgba(255, 255, 255, 0.05)', 
+            display: 'flex',
+            justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+            <p>Rules</p>
+            </div>
+            <div 
+            className="join_btn"
+            style={{width: '100%', 
+             display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            Join
+            </div>
+            </div>
+      <div 
+                className="submit_btn"
+                onClick={() => setProfile(false)}
+                style={{width: '100%', height: '15vh',
+                alignItems: 'center', justifyContent: 'center',
+                fontSize: '1.05rem', 
+                display: 'flex'}}>
+                    Close
+                </div>
+    </div>
+  )
+}
+
+const Settings = ({setSettings}: any) => {
+  return (
+    <div className="profile">
+      <style jsx>{`
+      .profile {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: -webkit-fill-available;
+        width: 100vw;
+        background: rgb(18, 18, 18);
+      }
+
+      .submit_btn {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .h_menu {
+      height: 100%;
+      min-height: 300px;
+      display: grid;
+  }
+
+    input {
+        width: 100%;
+        height: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .submit_btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+    }
+      `}</style>
+      <div className="h_menu">
+            <div
+            style={{width: '100%', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+            <p>1 v. 1 Death Match</p>
+            <p>Challenger: Dukes (1 - 0)</p>
+            </div>
+            <div 
+            style={{width: '100%', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            Super Smash Bros (Wii U)
+            </div>
+            <div 
+            className="rules_btn"
+            style={{width: '100%', background: 'rgba(255, 255, 255, 0.05)', 
+            display: 'flex',
+            justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+            <p>Rules</p>
+            </div>
+            <div 
+            className="join_btn"
+            style={{width: '100%', 
+             display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            Join
+            </div>
+            </div>
+      <div 
+                className="submit_btn"
+                onClick={() => setSettings(false)}
+                style={{width: '100%', height: '15vh',
+                alignItems: 'center', justifyContent: 'center',
+                fontSize: '1.5rem', fontWeight: 'bold', 
+                display: 'flex'}}>
+                    CLOSE
+                </div>
+    </div>
+  )
+}
 
 
   function SearchIcon() {
@@ -105,7 +222,7 @@ const Avi = () => {
 }
 
 
-const Settings = () => {
+const SettingsIcon = () => {
     return (
         <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -133,8 +250,12 @@ const Settings = () => {
 }
  
 const SmallHeader: React.SFC<SmallHeaderProps> = () => {
+  const [profile, setProfile] = React.useState(false);
+  const [settings, setSettings] = React.useState(false);
     return (
         <div className="small_header">
+          {profile && <Profile setProfile={setProfile}/>}
+          {settings && <Settings setSettings={setSettings} />}
             <style jsx>{`
                 .small_header {
                     width: 100%;
@@ -148,7 +269,7 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                     border-top-width: 1px;
                     height: 4.5rem;
                     position: fixed;
-                    z-index: 1;
+                    z-index: 999;
                     bottom: 0px;
                     background: rgb(18, 18, 18);
                 }
@@ -156,7 +277,7 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                 @media (max-width: 900px) {
                     .small_header {
                         display: flex;
-                        z-index: 1;
+                        z-index: 99;
                     }
                 }
             `}</style>
@@ -169,8 +290,12 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                 </div>
             </Link>
             <SearchIcon />
+            <div onClick={() => setProfile(!profile)}>
             <Avi />
-            <Settings />
+            </div>
+            <div onClick={() => setSettings(!settings)}>
+            <SettingsIcon />
+            </div>
         </div>
     );
 }

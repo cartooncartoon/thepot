@@ -27,6 +27,15 @@ const Dropdown = ({setGame}: any) => {
             transform: translate(-50%, -50%);
             border: 1px solid rgba(255, 255, 255, 0.1);
           }
+
+          @media (max-width: 900px) {
+            .dropdown {
+                width: 100vw;
+                height: 100vh;
+                height: -webkit-fill-available;
+                z-index: 99;
+            }
+        }
   
           .apply_btn {
             background: rgba(255, 255, 255, 0.1);
@@ -82,19 +91,11 @@ const Dropdown = ({setGame}: any) => {
             <div 
                   onClick={() => setGame(false)}
                   className="close_btn"
-                  style={{width: '100%', height: '15vh',
+                  style={{width: '100%', height: '7rem',
                   alignItems: 'center', justifyContent: 'center',
                   fontSize: '1.5rem', fontWeight: 'bold', 
                   display: 'flex'}}>
-                      CLOSE
-            </div>
-            <div 
-                  className="apply_btn"
-                  style={{width: '100%', height: '15vh',
-                  alignItems: 'center', justifyContent: 'center',
-                  fontSize: '1.5rem', fontWeight: 'bold', 
-                  display: 'flex'}}>
-                      APPLY
+                      Close
             </div>
             </div>
       </div>
@@ -121,6 +122,15 @@ const GTDropdown = ({setGT}: any) => {
             transform: translate(-50%, -50%);
             border: 1px solid rgba(255, 255, 255, 0.1);
           }
+
+          @media (max-width: 900px) {
+            .dropdown {
+                width: 100vw;
+                height: 100vh;
+                height: -webkit-fill-available;
+                z-index: 99;
+            }
+        }
   
           .apply_btn {
             background: rgba(255, 255, 255, 0.1);
@@ -216,6 +226,15 @@ const GTDropdown = ({setGT}: any) => {
             transform: translate(-50%, -50%);
             border: 1px solid rgba(255, 255, 255, 0.1);
           }
+
+          @media (max-width: 900px) {
+            .dropdown {
+                width: 100vw;
+                height: 100vh;
+                height: -webkit-fill-available;
+                z-index: 99;
+            }
+        }
   
           .apply_btn {
             background: rgba(255, 255, 255, 0.1);
@@ -404,7 +423,7 @@ const Discover: React.SFC<DiscoverProps> = () => {
   }
   
     return (
-        <div>
+        <div style={{position: 'relative'}}>
             <style jsx>{`
             .discover {
                 display: grid;
@@ -428,6 +447,7 @@ const Discover: React.SFC<DiscoverProps> = () => {
                 .navbar {
                     display: flex;
                     justify-content: flex-end;
+                    z-index: 99;
                     margin: 0 0 0 0;
                     padding: 1rem 0 1rem 0;
                     top: 0;
