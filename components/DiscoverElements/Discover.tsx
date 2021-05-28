@@ -1,4 +1,5 @@
-import React from 'react'
+import { gql, useQuery } from '@apollo/client';
+import React, { useEffect } from 'react'
 import DiscoverItem from './DiscoverItem'
 
 
@@ -6,21 +7,264 @@ export interface DiscoverProps {
     
 }
 
+let useClickOutside = (handler: () => void) => {
+  let domNode = React.useRef<any>();
+
+  React.useEffect(() => {
+    let maybeHandler = (event: { target: any; }) => {
+      if (!domNode?.current?.contains(event.target)) {
+        handler();
+      }
+    };
+
+    document.addEventListener("mousedown", maybeHandler);
+
+    return () => {
+      document.removeEventListener("mousedown", maybeHandler);
+    };
+  });
+
+  return domNode;
+};
+
+const JSONData = [
+  {
+    name: 'George',
+  },
+  {
+    name: 'Pam',
+  },
+  {
+    name: 'Leon',
+  },
+  {
+    name: 'Brad',
+  },
+  {
+    name: 'Chris',
+  },
+  {
+    name: 'George',
+  },
+  {
+    name: 'Pam',
+  },
+  {
+    name: 'Leon',
+  },
+  {
+    name: 'Brad',
+  },
+  {
+    name: 'Chris',
+  },
+  {
+    name: 'George',
+  },
+  {
+    name: 'Pam',
+  },
+  {
+    name: 'Leon',
+  },
+  {
+    name: 'Brad',
+  },
+  {
+    name: 'Chris',
+  },
+]
+
+const FilterData = [
+  {
+    name: 'Recent',
+    active: false,
+  },
+  {
+    name: 'Oldest',
+    active: false,
+  },
+  {
+    name: 'Min Amount',
+    active: false,
+  },
+  {
+    name: 'Max Amount',
+    active: false,
+  },
+  {
+    name: 'Most Expensive',
+    active: false,
+  },
+  {
+    name: 'Least Expensive',
+    active: false,
+  },
+  { 
+    name: 'Contains',
+    active: false,
+  }
+]
+
+
+const CheckIcon = () => {
+  return (
+    <svg viewBox="0 0 14 11" fill="none" width="12" height="12" 
+    xmlns="http://www.w3.org/2000/svg">
+      <style jsx>{`
+        svg {
+          animation: fadeInText 200ms 0ms forwards;
+        }
+
+        @keyframes fadeInText { 
+          from {
+            transform: translate(0%, -5%);
+            opacity: 0;
+          } to {
+            transform: translate(0%, 0%);
+            opacity: 1;
+          }
+        }
+      `}</style>
+      
+      <path d="M1 5L5 9L13 1" 
+    stroke="rgba(255, 255, 255, 1)" stroke-width="2" stroke-linecap="round">
+      </path></svg>
+  )
+}
+
+const GameSelect = ({children, onClick, active}: any) => {
+  return (
+    <li onClick={onClick}>
+      <style jsx>{`
+      li {
+        font-size: 1.25rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          cursor: pointer;
+          padding: 1.5rem;
+          margin: 1rem;
+          margin-top: 1rem;
+          border: ${active ? '1px solid rgba(255, 255, 255, 1)' : '1px solid rgba(255, 255, 255, 0.1);'}
+      }
+
+      li:hover {
+        border: 1px solid rgba(255, 255, 255, 1);
+      }
+
+      `}</style>
+      {children}
+      {active && <CheckIcon />}
+    </li>
+  )
+}
+
+
+const FilterSelect = ({children, onClick, active, setActive}: any) => {
+  const [amount, setAmount] = React.useState(false);
+
+  let node = React.useRef<any>(null);
+  
+  return (
+    <li 
+    onClick={onClick}>
+      <style jsx>{`
+      li {
+        font-size: 1.25rem;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+          justify-content: space-between;
+          cursor: pointer;
+          padding: 1.5rem;
+          margin: 1rem;
+          margin-top: 1rem;
+          border: ${active ? '1px solid rgba(255, 255, 255, 1)' : '1px solid rgba(255, 255, 255, 0.1);'}
+      }
+
+      input {
+        background: none;
+        color: inherit;
+        font-size: 16px;
+        border: none;
+        width: 100px;
+        outline: none;
+      }
+
+      span {
+        opacity: .25;
+      }
+
+      [contentEditable=true]:empty:not(:focus):before{
+        content:attr(data-ph);
+        color:grey;
+        font-style:italic;
+      }
+
+      span:focus {
+        outline: none;
+        opacity: 1;
+        border: none;
+      }
+
+      li:hover {
+        border: 1px solid rgba(255, 255, 255, 1);
+      }
+
+      `}</style>
+      {children}
+      <div
+      style={{display: 'flex', alignItems: 'center'}}>
+      { (children.includes('Contains') || children.includes('Max Amount') || children.includes('Min Amount')) &&
+      <span
+      contentEditable
+      ref={node}
+      style={{margin: '0 1rem 0 0'}}>{`${children.includes('Contains') ? 'Keyword' : 'Amount'}`}</span>
+      }
+      {active && <CheckIcon />}
+      </div>
+    </li>
+  )
+}
 
 const Dropdown = ({setGame}: any) => {
+  const [active, setActive] = React.useState('');
     const [query, setQuery] = React.useState('');
-  
+    console.log(JSON);
     return (
-      <div 
-      className="dropdown">
-          <style jsx>{`
+      <div className="overlay">
+        <style jsx>{`
+
+          .overlay {
+            width: 100vw;
+            height: 100vh;
+            background: rgba(18, 18, 18, .7);
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+          }
+
+          @keyframes fadeInText {
+            from {
+              transform: translate(-50%, -55%);
+              opacity: 0;
+            } to {
+              transform: translate(-50%, -50%);
+              opacity: 1;
+            }
+          }
+
           .dropdown {
             width: 50vw;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 75vh;
+            height: 90vh;
+            overflow: hidden;
             background: rgb(18, 18, 18);
+            animation: fadeInText 300ms 0ms forwards;
             position: fixed;
             left: 50%;
             top: 50%;
@@ -33,6 +277,7 @@ const Dropdown = ({setGame}: any) => {
                 width: 100vw;
                 height: 100vh;
                 height: -webkit-fill-available;
+                max-height: -webkit-fill-available;
                 z-index: 99;
             }
         }
@@ -40,31 +285,45 @@ const Dropdown = ({setGame}: any) => {
           .apply_btn {
             background: rgba(255, 255, 255, 0.1);
         }
+
+        ul {
+          font-size: 1.5rem;
+          height: 100%;
+          color: white;
+          overflow-y: auto;
+        }
   
   
         .close_btn {
-          background: rgba(255, 255, 255, 0.025);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
   
         .suggestions {
-          padding: 1rem;
+          height: 100%;
+          widht: 100%;
           overflow-x: hidden;
           overflow-y: auto;
         }
   
         input {
             width: 100%;
+            appeareance: none;
             border: none;
+            border-radius: 0px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             outline: none;
-            background: rgba(255, 255, 255, 0.025);
+            background: none;
             color: white;
-            padding-left: 1rem;
+            padding-left: 2rem;
             padding-right: 1rem;
-            font-size: 2rem;
-            height: 15vh;
-            padding-left: 1rem;
-            padding-right: 1rem;
+            font-size: 1.5rem;
+            height: 7rem;
         }
+
+        input[type="search"] {
+          -webkit-appearance: none;
+        }
+
   
         .apply_btn:hover {
             background: rgba(255, 255, 255, 0.2);
@@ -76,162 +335,246 @@ const Dropdown = ({setGame}: any) => {
           cursor: pointer;
       }
           `}</style>
+      <div 
+      className="dropdown">
+          <div>
           <input 
+          placeholder="Game?"
           onChange={(e) => setQuery(e.target.value)}
-          type="search" autoFocus />
+          type="search" />
+          </div>
           <div className="suggestions">
-          <h2>{query}</h2>
-          <h2>{query}</h2>
-          <h2>{query}</h2>
-          <h2>{query}</h2>
-          <h2>{query}</h2>
-          <h2>{query}</h2>
+          <ul id="myUL">
+          {JSONData.filter((value)=> {
+            if(query === "") {
+              return value
+            } else if (value.name.toLowerCase().includes(query.toLowerCase())) {
+              return value
+            }
+          }).map((value) => {
+            return <GameSelect 
+            active={active == value.name ? true : false}
+            onClick={() => setActive(active == value.name ? '' : value.name)}>{value.name}</GameSelect>
+          })}
+          </ul>
           </div>
           <div style={{display: 'flex', flexDirection: 'row'}}>
             <div 
                   onClick={() => setGame(false)}
                   className="close_btn"
-                  style={{width: '100%', height: '7rem',
+                  style={{width: '100%', height: '7rem', flexShrink: 0,
                   alignItems: 'center', justifyContent: 'center',
                   fontSize: '1.5rem', fontWeight: 'bold', 
                   display: 'flex'}}>
-                      Close
+                      Apply
             </div>
             </div>
+      </div>
       </div>
     )
   }
 
 const GTDropdown = ({setGT}: any) => {
-    const [query, setQuery] = React.useState('');
-  
-    return (
-      <div 
-      className="dropdown">
-          <style jsx>{`
-          .dropdown {
-            width: 50vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 75vh;
-            background: rgb(18, 18, 18);
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-          }
+ 
+  const [active, setActive] = React.useState('');
+  const [query, setQuery] = React.useState('');
+  console.log(JSON);
+  return (
+    <div className="overlay">
+      <style jsx>{`
 
-          @media (max-width: 900px) {
-            .dropdown {
-                width: 100vw;
-                height: 100vh;
-                height: -webkit-fill-available;
-                z-index: 99;
-            }
+        .overlay {
+          width: 100vw;
+          height: 100vh;
+          background: rgba(18, 18, 18, .7);
+          position: fixed;
+          z-index: 9999;
+          left: 0;
+          top: 0;
         }
-  
-          .apply_btn {
-            background: rgba(255, 255, 255, 0.1);
+
+        @keyframes fadeInText {
+          from {
+            transform: translate(-50%, -55%);
+            opacity: 0;
+          } to {
+            transform: translate(-50%, -50%);
+            opacity: 1;
+          }
         }
-  
-  
-        .close_btn {
-          background: rgba(255, 255, 255, 0.025);
+
+        .dropdown {
+          width: 50vw;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 90vh;
+          overflow: hidden;
+          background: rgb(18, 18, 18);
+          animation: fadeInText 300ms 0ms forwards;
+          position: fixed;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 900px) {
+          .dropdown {
+              width: 100vw;
+              height: 100vh;
+              height: -webkit-fill-available;
+              max-height: -webkit-fill-available;
+              z-index: 99;
+          }
       }
-  
-        .suggestions {
-          padding: 1rem;
-          overflow-x: hidden;
-          overflow-y: auto;
-        }
-  
-        input {
-            width: 100%;
-            border: none;
-            outline: none;
-            background: rgba(255, 255, 255, 0.025);
-            color: white;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            font-size: 2rem;
-            height: 15vh;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-  
-        .apply_btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-        }
-  
-        .close_btn:hover {
-          background: rgba(255, 255, 255, 0.05);
+
+        .apply_btn {
+          background: rgba(255, 255, 255, 0.1);
+      }
+
+      ul {
+        font-size: 1.5rem;
+        height: 100%;
+        color: white;
+        overflow-y: auto;
+      }
+
+
+      .close_btn {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+      .suggestions {
+        height: 100%;
+        widht: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      input {
+          width: 100%;
+          appeareance: none;
+          border: none;
+          border-radius: 0px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          outline: none;
+          background: none;
+          color: white;
+          padding-left: 2rem;
+          padding-right: 1rem;
+          font-size: 1.5rem;
+          height: 7rem;
+      }
+
+      input[type="search"] {
+        -webkit-appearance: none;
+      }
+
+
+      .apply_btn:hover {
+          background: rgba(255, 255, 255, 0.2);
           cursor: pointer;
       }
-          `}</style>
-          <input 
-          onChange={(e) => setQuery(e.target.value)}
-          type="search" autoFocus />
-          <div className="suggestions">
-          <h2>{query}</h2>
-          <h2>{query}</h2>
-          <h2>{query}</h2>
-          <h2>{query}</h2>
-          <h2>{query}</h2>
-          <h2>{query}</h2>
+
+      .close_btn:hover {
+        background: rgba(255, 255, 255, 0.05);
+        cursor: pointer;
+    }
+        `}</style>
+    <div 
+    className="dropdown">
+        <div className="suggestions">
+        <ul id="myUL">
+        {JSONData.filter((value)=> {
+          if(query === "") {
+            return value
+          } else if (value.name.toLowerCase().includes(query.toLowerCase())) {
+            return value
+          }
+        }).map((value) => {
+          return <GameSelect 
+          active={active == value.name ? true : false}
+          onClick={() => setActive(active == value.name ? '' : value.name)}>{value.name}</GameSelect>
+        })}
+        </ul>
+        </div>
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+          <div 
+                onClick={() => setGT(false)}
+                className="close_btn"
+                style={{width: '100%', height: '7rem', flexShrink: 0,
+                alignItems: 'center', justifyContent: 'center',
+                fontSize: '1.25rem',
+                display: 'flex'}}>
+                    Apply
           </div>
-          <div style={{display: 'flex', flexDirection: 'row'}}>
-            <div 
-                  onClick={() => setGT(false)}
-                  className="close_btn"
-                  style={{width: '100%', height: '15vh',
-                  alignItems: 'center', justifyContent: 'center',
-                  fontSize: '1.5rem', fontWeight: 'bold', 
-                  display: 'flex'}}>
-                      CLOSE
-            </div>
-            <div 
-                  className="apply_btn"
-                  style={{width: '100%', height: '15vh',
-                  alignItems: 'center', justifyContent: 'center',
-                  fontSize: '1.5rem', fontWeight: 'bold', 
-                  display: 'flex'}}>
-                      APPLY
-            </div>
-            </div>
-      </div>
-    )
+          </div>
+    </div>
+    </div>
+  )
   }
   
   
   const FilterDropdown = ({setFilter}: any) => {
+    const [active, setActive] = React.useState<any>([]);
     const [query, setQuery] = React.useState('');
-  
+
+    const handleRemoveItem = (name: any) => {
+      active.filter((item: any) => name == item ? item = null : item)
+  }
+
+    if(active.includes("Recent")) {
+      setActive(active.filter((item: any) => "Oldest" == item ? item = null : item));
+    }
+
+    console.log(active[0]);
     return (
-      <div 
-      className="dropdown">
-          <style jsx>{`
+      <div className="overlay">
+        <style jsx>{`
+  
+          .overlay {
+            width: 100vw;
+            height: 100vh;
+            background: rgba(18, 18, 18, .7);
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+          }
+  
+          @keyframes fadeInText {
+            from {
+              transform: translate(-50%, -55%);
+              opacity: 0;
+            } to {
+              transform: translate(-50%, -50%);
+              opacity: 1;
+            }
+          }
+  
           .dropdown {
             width: 50vw;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 75vh;
+            height: 90vh;
+            overflow: hidden;
             background: rgb(18, 18, 18);
+            animation: fadeInText 300ms 0ms forwards;
             position: fixed;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
             border: 1px solid rgba(255, 255, 255, 0.1);
           }
-
+  
           @media (max-width: 900px) {
             .dropdown {
                 width: 100vw;
                 height: 100vh;
                 height: -webkit-fill-available;
+                max-height: -webkit-fill-available;
                 z-index: 99;
             }
         }
@@ -240,30 +583,44 @@ const GTDropdown = ({setGT}: any) => {
             background: rgba(255, 255, 255, 0.1);
         }
   
+        ul {
+          font-size: 1.5rem;
+          height: 100%;
+          color: white;
+          overflow-y: auto;
+        }
+  
   
         .close_btn {
-          background: rgba(255, 255, 255, 0.025);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
   
         .suggestions {
-          padding: 1rem;
+          height: 100%;
+          widht: 100%;
           overflow-x: hidden;
           overflow-y: auto;
         }
   
         input {
             width: 100%;
+            appeareance: none;
             border: none;
+            border-radius: 0px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             outline: none;
-            background: rgba(255, 255, 255, 0.025);
+            background: none;
             color: white;
-            padding-left: 1rem;
+            padding-left: 2rem;
             padding-right: 1rem;
-            font-size: 2rem;
-            height: 15vh;
-            padding-left: 1rem;
-            padding-right: 1rem;
+            font-size: 1.5rem;
+            height: 7rem;
         }
+  
+        input[type="search"] {
+          -webkit-appearance: none;
+        }
+  
   
         .apply_btn:hover {
             background: rgba(255, 255, 255, 0.2);
@@ -275,36 +632,35 @@ const GTDropdown = ({setGT}: any) => {
           cursor: pointer;
       }
           `}</style>
-          <input 
-          onChange={(e) => setQuery(e.target.value)}
-          type="search" autoFocus />
+      <div 
+      className="dropdown">
           <div className="suggestions">
-          <h2>{query}</h2>
-          <h2>{query}</h2>
-          <h2>{query}</h2>
-          <h2>{query}</h2>
-          <h2>{query}</h2>
-          <h2>{query}</h2>
+          <ul id="myUL">
+          {FilterData.map((value) => {
+            return <FilterSelect
+            onClick={() => setActive(
+              active.includes(value.name) 
+              ? active.filter((item: any) => value.name == item ? item = null : item)
+              : (prev:any) => [...prev, value.name])}
+            value={value} 
+            active={active.includes(value.name) ? true : false}
+            setActive={setActive}
+            >{value.name}</FilterSelect>
+          })}
+          </ul>
           </div>
           <div style={{display: 'flex', flexDirection: 'row'}}>
             <div 
                   onClick={() => setFilter(false)}
                   className="close_btn"
-                  style={{width: '100%', height: '15vh',
+                  style={{width: '100%', height: '7rem', flexShrink: 0,
                   alignItems: 'center', justifyContent: 'center',
-                  fontSize: '1.5rem', fontWeight: 'bold', 
+                  fontSize: '1.5rem',
                   display: 'flex'}}>
-                      CLOSE
-            </div>
-            <div 
-                  className="apply_btn"
-                  style={{width: '100%', height: '15vh',
-                  alignItems: 'center', justifyContent: 'center',
-                  fontSize: '1.5rem', fontWeight: 'bold', 
-                  display: 'flex'}}>
-                      APPLY
+                      Apply
             </div>
             </div>
+      </div>
       </div>
     )
   }
@@ -412,18 +768,30 @@ const GTDropdown = ({setGT}: any) => {
   }
  
 const Discover: React.SFC<DiscoverProps> = () => {
+  const { loading, error, data } = useQuery(GET_POSTS);
     const [game, setGame] = React.useState(false);
-    const [gt, setGT] = React.useState(false);
+    const [gt, setGT] = React.useState('');
     const [filter, setFilter] = React.useState(false);
-    
-   const DI = () => {
-    for (let index = 0; index < 5; index++) {
-      return <DiscoverItem />
+
+    let domNode = useClickOutside(() => {
+      
+    });
+
+    let posts = [];
+
+    if(data) {
+    posts = data.Post;
+    console.log(data.Post);
     }
-  }
+
+    if(error) return null
+    if (loading) return null
   
     return (
         <div style={{position: 'relative'}}>
+          {game && <Dropdown setGame={setGame}/>}
+          {gt == 'gt' && <GTDropdown setGT={setGT}/>}
+          {filter && <FilterDropdown setFilter={setFilter} />}
             <style jsx>{`
             .discover {
                 display: grid;
@@ -452,8 +820,9 @@ const Discover: React.SFC<DiscoverProps> = () => {
                     padding: 1rem 0 1rem 0;
                     top: 0;
                 }
+              }
             
-            @media (max-width: 1140px) {
+            @media (max-width: 1280px) {
                 .discover {
                     display: grid;
                     grid-template-columns: repeat(2, 1fr);
@@ -478,27 +847,39 @@ const Discover: React.SFC<DiscoverProps> = () => {
       position: 'sticky', }}>
         <div 
         style={{alignItems: 'center', display: 'flex', overflow: 'auto'}}>
-        <div style={{display: 'flex', flexDirection: 'column'}}><MenuItem onClick={() => setGame(!game)}><Joystick /> Game</MenuItem>
-        {game && <Dropdown setGame={setGame}/>}</div>
-        <div style={{display: 'flex', flexDirection: 'column'}}><MenuItem onClick={() => setGT(!gt)}><Select /> Type</MenuItem>
-        {gt && <GTDropdown setGT={setGT}/>}</div>
+        <div style={{display: 'flex', flexDirection: 'column'}}><MenuItem onClick={() => setGame(game == false ? true : false)}><Joystick /> Game</MenuItem>
+        </div>
+        <div 
+        style={{display: 'flex', flexDirection: 'column'}}><MenuItem onClick={() => setGT(gt == 'gt' ? '' : 'gt')}><Select /> Type</MenuItem>
+        </div>
         <div><MenuItem onClick={() => setFilter(!filter)}><svg 
         style={{margin: '0 .5rem 0 0'}}
         viewBox="0 0 24 24" fill="none" width="22" height="22" xmlns="http://www.w3.org/2000/svg"><path d="M20 16L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6 16L4 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M20 8L18 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 8L4 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9" cy="16" r="3" fill="currentColor"></circle><circle cx="15" cy="8" r="3" fill="currentColor"></circle></svg> Filter</MenuItem>
         </div>
-        {filter && <FilterDropdown setFilter={setFilter} />}
         </div>
         </div>
         <div className="discover">
-            <DiscoverItem />
-            <DiscoverItem />
-            <DiscoverItem />
-            <DiscoverItem />
-            <DiscoverItem />
-            <DiscoverItem />
+            { posts.map((post: any) => {
+              return <DiscoverItem 
+              prize={post.Pot_Amount}
+              type={post.Game_Type}
+              img={post.background_image}
+              game={post.Game}/>
+            })}
         </div>
         </div>
     );
 }
+
+const GET_POSTS =  gql`
+query MyQuery {
+  Post {
+    Game
+    Pot_Amount
+    background_image
+    Game_Type
+  }
+}
+`
  
 export default Discover;

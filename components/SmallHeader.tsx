@@ -1,27 +1,43 @@
+import { signIn, signOut, useSession } from 'next-auth/client'
 import Link from 'next/link';
 import React from 'react'
 
 export interface SmallHeaderProps {
-    
+    setWithdraw: React.Dispatch<React.SetStateAction<boolean>>,
+    setDeposit: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-const Profile = ({setProfile}: any) => {
+const Profile = ({setDeposit, setProfile, setWithdraw}: any) => {
+  const [wdraw, setWdraw] = React.useState(false);
+  const [ session, loading ] = useSession();
+
   return (
     <div className="profile">
       <style jsx>{`
       .profile {
         display: flex;
         flex-direction: column;
+        z-index: 99;
         position: fixed;
         left: 0;
         top: 0;
         height: -webkit-fill-available;
+        animation: fadeInText 300ms 0ms forwards;
         width: 100vw;
         background: rgb(18, 18, 18);
       }
 
+      @keyframes fadeInText {
+        from {
+          transform: translate(0%, -10%);
+          opacity: 0;
+        } to {
+          transform: translate(0%, 0%);
+          opacity: 1;
+        }
+      }
+
       .submit_btn {
-        background: rgba(255, 255, 255, 0.1);
     }
 
     .h_menu {
@@ -44,25 +60,36 @@ const Profile = ({setProfile}: any) => {
       `}</style>
       <div className="h_menu">
             <div
-            style={{width: '100%', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-            <p>1 v. 1 Death Match</p>
+            style={{width: '100%', 
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+            {!session && <p onClick={() => signIn("discord")}>😊 Login with Discord</p>} 
+            {session && <p>{session?.user?.name}#{session?.user?.id}</p> }
+            </div>
+            <div
+            onClick={() => setDeposit(true)} 
+            style={{width: '100%', 
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            💰 Deposit
             </div>
             <div 
-            style={{width: '100%', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            Super Smash Bros (Wii U)
-            </div>
-            <div 
+            onClick={() => {
+              setWdraw(true);
+              setWithdraw(true)}}
             className="rules_btn"
-            style={{width: '100%', background: 'rgba(255, 255, 255, 0.05)', 
+            style={{width: '100%',  
             display: 'flex',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
             justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-            <p>Rules</p>
+            <p>💸 Withdraw</p>
             </div>
             <div 
             className="join_btn"
             style={{width: '100%', 
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
              display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            Join
+            ✌️ Log Out
             </div>
             </div>
       <div 
@@ -72,7 +99,7 @@ const Profile = ({setProfile}: any) => {
                 alignItems: 'center', justifyContent: 'center',
                 fontSize: '1.05rem', 
                 display: 'flex'}}>
-                    Close
+                    👋 Close
                 </div>
     </div>
   )
@@ -88,13 +115,24 @@ const Settings = ({setSettings}: any) => {
         position: fixed;
         left: 0;
         top: 0;
+        z-index: 99;
         height: -webkit-fill-available;
+        animation: fadeInText 300ms 0ms forwards;
         width: 100vw;
         background: rgb(18, 18, 18);
       }
 
+      @keyframes fadeInText {
+        from {
+          transform: translate(0%, -10%);
+          opacity: 0;
+        } to {
+          transform: translate(0%, 0%);
+          opacity: 1;
+        }
+      }
+
       .submit_btn {
-        background: rgba(255, 255, 255, 0.1);
     }
 
     .h_menu {
@@ -117,26 +155,31 @@ const Settings = ({setSettings}: any) => {
       `}</style>
       <div className="h_menu">
             <div
-            style={{width: '100%', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-            <p>1 v. 1 Death Match</p>
-            <p>Challenger: Dukes (1 - 0)</p>
+            style={{width: '100%', 
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+            
             </div>
             <div 
-            style={{width: '100%', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            Super Smash Bros (Wii U)
+            style={{width: '100%', 
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            Deposit
             </div>
             <div 
             className="rules_btn"
-            style={{width: '100%', background: 'rgba(255, 255, 255, 0.05)', 
+            style={{width: '100%',  
             display: 'flex',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
             justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-            <p>Rules</p>
+            <p>Withdraw</p>
             </div>
             <div 
             className="join_btn"
             style={{width: '100%', 
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
              display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            Join
+            Log Out
             </div>
             </div>
       <div 
@@ -144,9 +187,9 @@ const Settings = ({setSettings}: any) => {
                 onClick={() => setSettings(false)}
                 style={{width: '100%', height: '15vh',
                 alignItems: 'center', justifyContent: 'center',
-                fontSize: '1.5rem', fontWeight: 'bold', 
+                fontSize: '1.05rem', 
                 display: 'flex'}}>
-                    CLOSE
+                    Close
                 </div>
     </div>
   )
@@ -249,13 +292,18 @@ const SettingsIcon = () => {
     )
 }
  
-const SmallHeader: React.SFC<SmallHeaderProps> = () => {
+const SmallHeader: React.SFC<SmallHeaderProps> = ({setWithdraw, setDeposit}) => {
   const [profile, setProfile] = React.useState(false);
   const [settings, setSettings] = React.useState(false);
     return (
+      <div>
+        {profile && <Profile
+          setDeposit={setDeposit} 
+          setWithdraw={setWithdraw}
+          setProfile={setProfile}/>}
+          {settings && <Settings
+          setSettings={setSettings} />}
         <div className="small_header">
-          {profile && <Profile setProfile={setProfile}/>}
-          {settings && <Settings setSettings={setSettings} />}
             <style jsx>{`
                 .small_header {
                     width: 100%;
@@ -269,7 +317,7 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                     border-top-width: 1px;
                     height: 4.5rem;
                     position: fixed;
-                    z-index: 999;
+                    z-index: 9;
                     bottom: 0px;
                     background: rgb(18, 18, 18);
                 }
@@ -277,7 +325,7 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
                 @media (max-width: 900px) {
                     .small_header {
                         display: flex;
-                        z-index: 99;
+                        z-index: 9;
                     }
                 }
             `}</style>
@@ -293,9 +341,12 @@ const SmallHeader: React.SFC<SmallHeaderProps> = () => {
             <div onClick={() => setProfile(!profile)}>
             <Avi />
             </div>
-            <div onClick={() => setSettings(!settings)}>
+            <div 
+            style={{height: 36}}
+            onClick={() => setSettings(!settings)}>
             <SettingsIcon />
             </div>
+        </div>
         </div>
     );
 }

@@ -67,3 +67,18 @@ p {
   margin: 0;
   font-size: 1rem;
 }
+
+table, td, th {  
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+
+table {
+  margin: 0 0 2rem 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 16px;
+}

@@ -1,18 +1,211 @@
 import useWindowDimensions from '@/../hooks/useWindowDimensions';
+import { ApolloClient, gql, HttpLink, InMemoryCache } from '@apollo/client';
 import React from 'react'
 import BottomAction from '../BottomAction';
 import Fab from '../Fab';
+import Match from './Match';
+
+import Rules from './Rules';
 
 export interface PotProps {
-    
+    post: [],
+}
+
+function CheckIcon() {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="80"
+        fill="white"
+        height="80"
+        viewBox="0 0 24 24"
+        style={{margin: '0 0 1rem 0'}}
+      >
+        <path d="M20.285 2L9 13.567 3.714 8.556 0 12.272 9 21 24 5.715z"></path>
+      </svg>
+    );
+  }
+
+
+const JoinModal = ({setJModal}: any) => {
+    const [show, setShow] = React.useState(true)
+
+    React.useEffect(() => {
+        setTimeout(() => {
+          setShow(false)
+        }, 2000)
+      }, [show])
+
+      React.useEffect(() => {
+        setTimeout(() => {
+          setJModal(false)
+        }, 3000)
+    })
+
+    return (
+        <div 
+        onClick={() => setJModal(false)}
+        className="overlay">
+            <style jsx>{`
+            .overlay {
+                position: fixed;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                z-index: 999;
+                height: -webkit-fill-available;
+                background: rgba(0, 0, 0, 0.4);
+            }
+
+            .join__modal {
+                width: 30rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                max-width: 90vw;
+                height: 20rem;
+                animation: fadeInText 300ms 0ms forwards;
+                background: rgb(18, 18, 18);
+            }
+
+            .check {
+                animation: bounceIn 450ms 0ms forwards;
+            }
+
+            @keyframes bounceIn{
+                0%{
+                  opacity: 0;
+                  transform: scale(0.3) translate3d(0,0,0);
+                }
+                50%{
+                  opacity: 0.9;
+                  transform: scale(1.1);
+                }
+                80%{
+                  opacity: 1;
+                  transform: scale(0.89);
+                }
+                100%{
+                  opacity: 1;
+                  transform: scale(1) translate3d(0,0,0);
+                }
+              }
+
+            .lds-ring {
+                display: inline-block;
+                margin-bottom: 2rem;
+                position: relative;
+                width: 80px;
+                height: 80px;
+              }
+              .lds-ring div {
+                box-sizing: border-box;
+                display: block;
+                position: absolute;
+                width: 64px;
+                height: 64px;
+                margin: 8px;
+                border: 8px solid #fff;
+                border-radius: 50%;
+                animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                border-color: #fff transparent transparent transparent;
+              }
+              .lds-ring div:nth-child(1) {
+                animation-delay: -0.45s;
+              }
+              .lds-ring div:nth-child(2) {
+                animation-delay: -0.3s;
+              }
+              .lds-ring div:nth-child(3) {
+                animation-delay: -0.15s;
+              }
+              @keyframes lds-ring {
+                0% {
+                  transform: rotate(0deg);
+                }
+                100% {
+                  transform: rotate(360deg);
+                }
+              }
+              
+              @keyframes fadeInText {
+                from {
+                  transform: translate(0%, -10%);
+                  opacity: 0;
+                } to {
+                  transform: translate(0%, -0%);
+                  opacity: 1;
+                }
+              }
+
+            .submit_btn {
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .submit_btn:hover {
+                background: rgba(255, 255, 255, 0.2);
+                cursor: pointer;
+             }
+
+             .loading {
+                font-size: 24px;
+                font-weight: 600;
+              }
+              
+              .loading:after {
+                overflow: hidden;
+                display: inline-block;
+                vertical-align: bottom;
+                -webkit-animation: ellipsis steps(4,end) 900ms infinite;      
+                animation: ellipsis steps(4,end) 900ms infinite;
+                width: 0px;
+              }
+              
+              @keyframes ellipsis {
+                to {
+                  width: 1.25em;    
+                }
+              }
+              
+              @-webkit-keyframes ellipsis {
+                to {
+                  width: 1.25em;    
+                }
+              }
+            `}</style>
+            <div className="join__modal">
+                { show &&
+                <div style={{display: 'flex', alignItems: 'center',
+                height: '100%',
+                justifyContent: 'center', flexDirection: 'column'}}>
+                <div className="lds-ring"><div></div><div></div></div>
+                <p className="loading">Joining The Match ⚔️</p>
+                </div>
+                }
+                {
+                 !show &&
+                 <div style={{display: 'flex', alignItems: 'center',
+                height: '100%',
+                justifyContent: 'center', flexDirection: 'column'}}>
+                <div className="check">{CheckIcon()}</div>
+                <p className="loading">Joined The Match 🎉</p>
+                </div>
+                }
+            </div>
+        </div>
+    )
 }
 
 
-const Join = ({setJoin}: any) => {
+const Join = ({setJoin, jmodal, setJModal}: any) => {
+    const {width, height} = useWindowDimensions();
     return (
         <div className="overlay">
              <style jsx>{`
-
 .overlay {
        position: fixed;
        top: 0;
@@ -26,12 +219,12 @@ const Join = ({setJoin}: any) => {
    display: flex;
    flex-direction: column;
    justify-content: space-between;
-   position: absolute;
+   position: fixed;
    top: 50%;
    left: 50%;
    transform: translate(-50%, -50%);
-   width: 50vw;
-   height: 85vh;
+   width: 35rem;
+   height: 35rem;
    z-index: 4;
    background: rgb(18, 18, 18);
    border: 1px solid rgba(255, 255, 255, 0.1);
@@ -43,7 +236,7 @@ const Join = ({setJoin}: any) => {
      transform: translate(-50%, -55%);
      opacity: 0;
    } to {
-     transform: translate(-50%, -5b0%);
+     transform: translate(-50%, -50%);
      opacity: 1;
    }
  }
@@ -55,14 +248,15 @@ const Join = ({setJoin}: any) => {
 @media (max-width: 900px) {
    .join {
        width: 100vw;
-       height: 100vh;
+       left: 50%;
+       top: 50%;
        height: -webkit-fill-available;
        z-index: 999;
    }
 }
 
 .submit_btn {
-   background: rgba(255, 255, 255, 0.1);
+   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 h1 {
@@ -96,19 +290,26 @@ input {
             <h1>Join</h1>
             <p>You're one step forward towards the island of the beast! What we need from you is to sign up with your Discord 
             name and Email address to complete the transaction. </p>
-            <input placeholder="Discord Username" />
-            <input placeholder="email@example.com" />
             <p>By submiting you agree to the rules of the match and the site.</p>
             </div>
-            <div style={{display: 'flex'}}>
+            <div style={{display: 'flex', flexDirection: 'column'}}>
                 <div 
                 className="submit_btn"
-                onClick={() => setJoin(false)}
+                onClick={() => setJModal(true)}
                 style={{width: '100%', height: '15vh',
                 alignItems: 'center', justifyContent: 'center',
                 fontSize: '1.5rem', fontWeight: 'bold', 
                 display: 'flex'}}>
-                    CLOSE
+                    Join
+                </div>
+                <div 
+                className="submit_btn"
+                onClick={() => setJoin(false)}
+                style={{width: '100%', height: '15vh', borderRight: '1px solid rgba(255, 255, 255, 0.1)',
+                alignItems: 'center', justifyContent: 'center',
+                fontSize: '1.5rem', fontWeight: 'bold', 
+                display: 'flex'}}>
+                    Close
                 </div>
                 </div>
         </div>
@@ -120,100 +321,142 @@ input {
 const Battle = ({setBattle}: any) => {
     return (
         <div className="overlay">
-             <style jsx>{`
+        <style jsx>{`
 
 .overlay {
-       position: fixed;
-       top: 0;
-       left: 0;
-       width: 100vw;
-       height: 100vh;
-       z-index: 99;
-       background: rgba(0, 0, 0, 0.4);
-   }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.4);
+}
 .join {
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-   width: 50vw;
-   height: 85vh;
-   z-index: 4;
-   background: rgb(18, 18, 18);
-   border: 1px solid rgba(255, 255, 255, 0.1);
-   animation: fadeInText 300ms 0ms forwards;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 75vw;
+height: 85vh;
+z-index: 4;
+background: rgb(18, 18, 18);
+border: 1px solid rgba(255, 255, 255, 0.1);
+animation: fadeInText 300ms 0ms forwards;
 }
 
 @keyframes fadeInText {
-   from {
-     transform: translate(-50%, -55%);
-     opacity: 0;
-   } to {
-     transform: translate(-50%, -5b0%);
-     opacity: 1;
-   }
- }
+from {
+transform: translate(-50%, -55%);
+opacity: 0;
+} to {
+transform: translate(-50%, -50%);
+opacity: 1;
+}
+}
 
 .info {
-   padding: 2rem;
+    min-width: 40rem;
+    overflow-x: ;
 }
 
 @media (max-width: 900px) {
-   .join {
-       width: 100vw;
-       height: 100vh;
-       height: -webkit-fill-available;
-       z-index: 99;
-   }
+.join {
+  width: 100vw;
+  left: 50%;
+  top: 50%;
+  height: -webkit-fill-available;
+  z-index: 999;
+}
 }
 
 .submit_btn {
-   background: rgba(255, 255, 255, 0.1);
+border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 h1 {
-   font-size: 3rem;
+font-size: 3rem;
 }
 
 p {
-   margin: 1rem 0 0 0;
+margin: 1rem 0 0 0;
+}
+
+table {
+    
 }
 
 input {
-   width: 100%;
-   font-size: 1.25rem;
-   color: white;
-   margin: 1rem 0 1rem 0;
-   background: rgba(255, 255, 255, .1);
-   outline: none;
-   border: none;
-   height: 4rem;
-   padding-left: 1rem;
-   padding-right: 1rem;
+width: 100%;
+font-size: 1.25rem;
+color: white;
+margin: 1rem 0 1rem 0;
+background: rgba(255, 255, 255, .1);
+outline: none;
+border: none;
+height: 4rem;
+padding-left: 1rem;
+padding-right: 1rem;
 }
 
 .submit_btn:hover {
-   background: rgba(255, 255, 255, 0.2);
-   cursor: pointer;
+background: rgba(255, 255, 255, 0.2);
+cursor: pointer;
 }
 `}</style>
-        <div className="join">
-            <div style={{display: 'flex'}}>
-                <div 
-                className="submit_btn"
-                onClick={() => setBattle(false)}
-                style={{width: '100%', height: '15vh',
-                alignItems: 'center', justifyContent: 'center',
-                fontSize: '1.5rem', fontWeight: 'bold', 
-                display: 'flex'}}>
-                    CLOSE
-                </div>
-                </div>
-        </div>
-        </div>
+   <div className="join">
+       <div style={{overflow: 'auto'}}>
+       <div className="info">
+       <table>
+  <tr>
+    <th>Rank</th>
+    <th>Name</th>
+    <th>Result</th>
+    <th>Prize</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>🏆 Peter</td>
+    <td>1h 38m 21s <br/> Video</td>
+    <td>$100</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>🥈 Lois</td>
+    <td>1h 38m 21s <br/> Video</td>
+    <td>$150</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>🥉 Joe</td>
+    <td>1h 38m 21s <br/> Video</td>
+    <td>$300</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>Cleveland</td>
+    <td>1h 38m 21s <br/> Video</td>
+    <td>$250</td>
+  </tr>
+</table>
+       </div>
+       </div>
+       <div style={{display: 'flex'}}>
+           <div 
+           className="submit_btn"
+           onClick={() => setBattle(false)}
+           style={{width: '100%', height: '15vh',
+           alignItems: 'center', justifyContent: 'center',
+           fontSize: '1.5rem', fontWeight: 'bold', 
+           display: 'flex'}}>
+               Close
+           </div>
+           </div>
+   </div>
+   </div>
     )
 }
 
@@ -221,115 +464,115 @@ input {
 const Game = ({setGame}: any) => {
     return (
         <div className="overlay">
-             <style jsx>{`
+        <style jsx>{`
 
 .overlay {
-       position: fixed;
-       top: 0;
-       left: 0;
-       width: 100vw;
-       height: 100vh;
-       z-index: 99;
-       background: rgba(0, 0, 0, 0.4);
-   }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.4);
+}
 .join {
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-   width: 50vw;
-   height: 85vh;
-   z-index: 4;
-   background: rgb(18, 18, 18);
-   border: 1px solid rgba(255, 255, 255, 0.1);
-   animation: fadeInText 300ms 0ms forwards;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 50vw;
+height: 85vh;
+z-index: 4;
+background: rgb(18, 18, 18);
+border: 1px solid rgba(255, 255, 255, 0.1);
+animation: fadeInText 300ms 0ms forwards;
 }
 
 @keyframes fadeInText {
-   from {
-     transform: translate(-50%, -55%);
-     opacity: 0;
-   } to {
-     transform: translate(-50%, -5b0%);
-     opacity: 1;
-   }
- }
+from {
+transform: translate(-50%, -55%);
+opacity: 0;
+} to {
+transform: translate(-50%, -50%);
+opacity: 1;
+}
+}
 
 .info {
-   padding: 2rem;
+padding: 2rem;
 }
 
 @media (max-width: 900px) {
-   .join {
-       width: 100vw;
-       height: 100vh;
-       height: -webkit-fill-available;
-       z-index: 99;
-   }
+.join {
+  width: 100vw;
+  left: 50%;
+  top: 50%;
+  height: -webkit-fill-available;
+  z-index: 999;
+}
 }
 
 .submit_btn {
-   background: rgba(255, 255, 255, 0.1);
+border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 h1 {
-   font-size: 3rem;
+font-size: 3rem;
 }
 
 p {
-   margin: 1rem 0 0 0;
+margin: 1rem 0 0 0;
 }
 
 input {
-   width: 100%;
-   font-size: 1.25rem;
-   color: white;
-   margin: 1rem 0 1rem 0;
-   background: rgba(255, 255, 255, .1);
-   outline: none;
-   border: none;
-   height: 4rem;
-   padding-left: 1rem;
-   padding-right: 1rem;
+width: 100%;
+font-size: 1.25rem;
+color: white;
+margin: 1rem 0 1rem 0;
+background: rgba(255, 255, 255, .1);
+outline: none;
+border: none;
+height: 4rem;
+padding-left: 1rem;
+padding-right: 1rem;
 }
 
 .submit_btn:hover {
-   background: rgba(255, 255, 255, 0.2);
-   cursor: pointer;
+background: rgba(255, 255, 255, 0.2);
+cursor: pointer;
 }
 `}</style>
-        <div className="join">
-            <div className="info">
-            <h1>Join</h1>
-            <p>You're one step forward towards the island of the beast! What we need from you is to sign up with your Discord 
-            name and Email address to complete the transaction. </p>
-            <input placeholder="Discord Username" />
-            <input placeholder="email@example.com" />
-            <p>By submiting you agree to the rules of the match and the site.</p>
-            </div>
-            <div style={{display: 'flex'}}>
-                <div 
-                className="submit_btn"
-                onClick={() => setGame(false)}
-                style={{width: '100%', height: '15vh',
-                alignItems: 'center', justifyContent: 'center',
-                fontSize: '1.5rem', fontWeight: 'bold', 
-                display: 'flex'}}>
-                    CLOSE
-                </div>
-                </div>
-        </div>
-        </div>
+   <div className="join">
+       <div className="info">
+       <h1>Join</h1>
+       <p>You're one step forward towards the island of the beast! What we need from you is to sign up with your Discord 
+       name and Email address to complete the transaction. </p>
+       <p>By submiting you agree to the rules of the match and the site.</p>
+       </div>
+       <div style={{display: 'flex'}}>
+           <div 
+           className="submit_btn"
+           onClick={() => setGame(false)}
+           style={{width: '100%', height: '15vh',
+           alignItems: 'center', justifyContent: 'center',
+           fontSize: '1.5rem', fontWeight: 'bold', 
+           display: 'flex'}}>
+               Close
+           </div>
+           </div>
+   </div>
+   </div>
     )
 }
  
-const Pot: React.SFC<PotProps> = () => {
+const Pot: React.SFC<PotProps> = ({post}) => {
     const [join, setJoin] = React.useState(false);
     const [battle, setBattle] = React.useState(false);
     const [game, setGame] = React.useState(false);
+    const [jmodal, setJmodal] = React.useState(false);
     const [rules, setRules] = React.useState(false);
 
     return (
@@ -350,15 +593,22 @@ const Pot: React.SFC<PotProps> = () => {
                 .pot {
                     grid-template-columns: repeat(1, 1fr);
                     padding: 0px;
+                    z-index: ${join || battle || game ? 999 : 99};
                 }
             }
             `}</style>
         <PotDesc />
-        <PotCard 
+        <PotCard
+        post={post} 
         setBattle={setBattle}
         setGame={setGame}
         setJoin={setJoin} join={join}/>
-        {join && <Join setJoin={setJoin}/>}
+        {jmodal && <JoinModal 
+        setJModal={setJmodal}
+        />}
+        {join && <Join 
+        jmodal={jmodal} setJModal={setJmodal}
+        setJoin={setJoin}/>}
         {battle && <Battle setBattle={setBattle} />}
         {game && <Game setGame={setGame} />}
         </div>
@@ -384,125 +634,12 @@ function PotIcon() {
 
 const PotDesc = () => {
     return ( 
-        <div className="post_desc">
-            <style jsx>{`
-            .post_desc {
-            width: 100%;
-            position: relative;
-            animation: fadeInText 300ms 0ms forwards;
-            }
-
-            .description {
-                display: none;
-                overflow-x: hidden;
-            }
-
-
-            @media (max-width: 1050px) {
-                .post_desc {
-                    max-width: 100%;
-                    width: 100%;
-                    overflow: auto;
-                    display: none;
-                }
-
-                .rules {
-                    display: none;
-                }
-                
-                .description {
-                    display: flex;
-                }
-            }
-            
-            
-            h3 {
-                margin: 1rem 0 .25rem 0;
-            }
-
-            .img_wrapper {
-                position: relative;
-                padding-bottom: 56.2%;
-            }
-
-            .post_write {
-                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
-                background: rgba(255, 255, 255, .02);
-                padding-bottom: 2rem;
-            }
-
-            img {
-                position: absolute;
-                object-fit: cover;
-                width: 100%;
-                height: 100%;
-            }
-
-
-            p {
-                font-size: 1.10rem;
-                line-height: 2rem;
-            }
-
-            .JOIN_btn {
-                background: rgba(255, 255, 255, 0.1);
-            }
-
-            .JOIN_btn:hover {
-                background: rgba(255, 255, 255, 0.2);
-                cursor: pointer;
-            }
-
-            @keyframes fadeInText {
-                from {
-                  transform: translate(0%, 10%);
-                  opacity: 0;
-                } to {
-                  transform: translate(0%, 0%);
-                  opacity: 1;
-                }
-              }
-            `}</style>
-            <div className="post_write">
-            <div className="rules" style={{padding: '2rem'}}>
-                <h1>Match Details</h1>
-                <h3>Prizes 🏆: </h3>
-                🥇 $400 <br />
-                🥈 $200 <br />
-                🥉 $50  <br />
-            <h3>Game Settings:</h3> Unless otherwise specified, the following settings must be set to following:
-<ul>
-<li>Fatigue: ON</li>
-<li>Even Teams: OFF</li>
-<li>Game Speed: NORMAL</li>
-<li>Weather: OFF</li>
-</ul>
-<h3>Lag/Settings/Teams:</h3>After 2 minutes of gameplay any complaints on lag, pre-game settings, or banned teams will not be taken into consideration. No exceptions. (Note: connection is much better if you use a LAN cable instead of WiFi.)
-
-<h3>Disconnections:</h3> In the event of a disconnection, you and your opponent must finish the remaining time of the match, keeping the score the same as it was in the game that got disconnected. i.e. If the disconnection occurred in at the end of the 1st quarter, the new game should be played until the end of the 3rd quarter. We highly recommend recording video of all game footage in case of a dispute.
-
-If you can't continue the match within 15 minutes of disconnecting, Players' Lounge may rule on the match using our discretion. If you were losing, you will be given the loss. If you were winning, the match may be canceled or you may be given the loss depending on the circumstances. It is up to the player who was losing to reach out and attempt to play the match again. If you were losing and no attempt is made to play again within 15 minutes, you will lose the match.
-
-<h3>Show Playbook:</h3> Users must show and confirm playbooks before starting the match. Do not start the match until you’ve confirmed your opponents playbooks.
-
-No Customs: The use of custom playbooks is NOT allowed. The actual "West Coast" and "Multiple-D" Playbooks are allowed. Custom playbooks show up as "West Coast" and "Multiple-D" in the pre-game match screen. If you get caught using a Custom playbook claiming to use the real "West Coast" or "Multiple-D" playbook, you will either forfeit or have the match canceled. If you ready up to play against "West Coast" or "Multiple-D", and suspect your opponent is using a Custom at any time, you must quit the match immediately. You need sufficient evidence of your opponent running a play/formation that is not in the "West Coast" and "Multiple-D" playbook to support your claim.
-
-<h3>Accelerated vs Chew clock:</h3>
-Accelerated clock is a PRE-game setting that is set by the match host. This will cause the play clock to consistently run down to 15/20/25 seconds for each player throughout the entire match. NOTE - the clock automatically runs time off in All-Madden difficulty after selecting a play or during a hurry-up offense. This is NOT Accelerated clock.
-
-Chew clock is an IN-game option that's available to anyone picking an offensive play. Chew will bring the playclock down to 10 seconds after an offensive play is selected. It is legal to Chew at any time and is not disputable unless otherwise specified.
-
-<h3>Pause Timer:</h3> If you are "Kicked for Excessive Griefing" when you are losing a match or the game is tied, you automatically lose. If you are kicked when you are winning a match, the match will be cancelled. If you're kicked prior to the end of the first quarter of game play and the score is tied, we will consider it a non issue and the game should be replayed.
-
-<h3>Online Squads Only:</h3> Matches must be played with Online Squads only. You are not allowed to import a team or a franchise.
-            </div>
-            </div>
-        </div>
+        <Rules />
     );
 }
 
 
-const PotCard = ({setJoin, setBattle, setGame, join}: any) => {
+const PotCard = ({setJoin, setBattle, setGame, join, post}: any) => {
     const {width, height} = useWindowDimensions();
     return (
         <div className="discoverItem">
@@ -513,6 +650,8 @@ const PotCard = ({setJoin, setBattle, setGame, join}: any) => {
                 max-width: 500px;
                 position: sticky;
                 top: calc(72px + 24px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: none;
                 margin-left: auto;
                 margin-right: auto;
                 animation: fadeInText 300ms 0ms forwards;
@@ -533,13 +672,12 @@ const PotCard = ({setJoin, setBattle, setGame, join}: any) => {
             
 
             .card {
-                height: 240px;
+                height: 300px;
                 overflow: hidden;
                 position: relative;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 24px 17px 0 rgb(0 0 0 / 5%), 0 4.5px 6px 0 rgb(0 0 0 / 20%);
                 background-size: cover;
                 background-position: center;
                 cursor: pointer;
@@ -554,7 +692,7 @@ const PotCard = ({setJoin, setBattle, setGame, join}: any) => {
             }
 
             .join_btn {
-                background: rgba(255, 255, 255, 0.05);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
 
             img {
@@ -587,11 +725,18 @@ const PotCard = ({setJoin, setBattle, setGame, join}: any) => {
                     transform: none;
                 }
 
+                .card {
+                    max-height: 240px;
+                }
+
                 .discoverItem {
                     top: 0;
                     height: calc(${height}px - 72px);
-                    max-height: -webkit-calc(-webkit-fill-available * 0.5);
                     position: relative;
+                }
+
+                .h_menu {
+                    min-height: 0px;
                 }
 
                 .rules_btn {
@@ -599,7 +744,7 @@ const PotCard = ({setJoin, setBattle, setGame, join}: any) => {
                 }
 
                 .join_btn {
-                    background: rgba(255, 255, 255, 0.025);
+                    border-bottom: none;
                 }
 
                 .info {
@@ -608,11 +753,11 @@ const PotCard = ({setJoin, setBattle, setGame, join}: any) => {
 
             `}</style>
             <div className="card">
-                <img width="100%" height="100%" src="https://media.wired.com/photos/5c119aaa1d856b064de8472b/master/pass/SSB.jpg" />
+                <img width="100%" height="100%" src={post && post.background_image} />
                 <div style={{position: 'absolute', 
                 bottom: 0, background: 'rgba(18, 18, 18, 0.85)', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', padding: '1.5rem', alignItems: 'center'}}>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <h1>400 <PotIcon /></h1>
+                    <h1>${post.Pot_Amount}</h1>
                     <p>5D: 6H: 54M Left</p>
                     <p>Fee: $220</p>
                     </div>
@@ -621,18 +766,17 @@ const PotCard = ({setJoin, setBattle, setGame, join}: any) => {
             <div className="h_menu">
             <div 
             onClick={() => setBattle(true)}
-            style={{width: '100%', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-            <p>1 v. 1 Death Match</p>
-            <p>Challenger: Dukes (1 - 0)</p>
+            style={{width: '100%', borderTop: '1px solid rgba(255, 255, 255, 0.1)', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+            {post.Game_Type}
             </div>
             <div 
             onClick={() => setGame(true)}
-            style={{width: '100%', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            Super Smash Bros (Wii U)
+            style={{width: '100%', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            {post.Game}
             </div>
             <div 
             className="rules_btn"
-            style={{width: '100%', background: 'rgba(255, 255, 255, 0.05)', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+            style={{width: '100%', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
             <p>Rules</p>
             </div>
             <div 
@@ -646,5 +790,8 @@ const PotCard = ({setJoin, setBattle, setGame, join}: any) => {
         </div>
     );
 }
+
+
+
  
 export default Pot;

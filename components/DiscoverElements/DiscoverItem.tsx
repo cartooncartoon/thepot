@@ -3,7 +3,10 @@ import Link from 'next/link';
 
 
 export interface DiscoverItemProps {
-    
+    game: any,
+    prize: any,
+    img: any,
+    type: any,
 }
 
 
@@ -25,12 +28,40 @@ function PotIcon() {
     );
   }
  
-const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
+const DiscoverItem: React.SFC<DiscoverItemProps> = ({game, prize, type, img}) => {
+    // Set the date we're counting down to
+const countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
+let days
+let hours
+let minutes
+let seconds
+
+// Update the count down every 1 second
+React.useEffect(() => {setInterval(() => {
+
+  // Get today's date and time
+  const now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  const distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+   days = Math.floor(distance / (1000 * 60 * 60 * 24));
+   hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+   minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+   seconds = Math.floor((distance % (1000 * 60)) / 1000);
+}, 1000);
+});
     return (
+        <Link href={`pot/${game}`}>
         <div className="discoverItem">
             <style jsx>{`
             .discoverItem {
                 width: 100%;
+                cursor: pointer;
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
                 transition: transform 350ms ease, -webkit-transform 350ms ease;
                 margin-bottom: 1rem;
             }
@@ -38,13 +69,13 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
             
 
             .card {
-                height: 240px;
+                height: 280px;
+                
                 overflow: hidden;
                 position: relative;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 24px 17px 0 rgb(0 0 0 / 5%), 0 4.5px 6px 0 rgb(0 0 0 / 20%);
                 background-size: cover;
                 background-position: center;
                 cursor: pointer;
@@ -80,27 +111,28 @@ const DiscoverItem: React.SFC<DiscoverItemProps> = () => {
                 }
 
             `}</style>
-            <Link href="pot/hello">
             <div className="card">
-                <img width="100%" height="100%" src="https://media.wired.com/photos/5c119aaa1d856b064de8472b/master/pass/SSB.jpg" />
+                <img width="100%" height="100%" src={`${img}`} />
                 <div style={{position: 'absolute', 
                 bottom: 0, background: 'rgba(18, 18, 18, 0.85)', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', padding: '1.5rem', alignItems: 'center'}}>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <h1>400 <PotIcon /></h1>
-                    <p>5D: 6H: 54M Left</p>
-                    <p>Fee: $220</p>
+                    <h1>${prize}</h1>
+                    <p>{days}D: {hours}H: {minutes}M: {seconds}S: Left</p>
+                    <p>Fee: ${prize * 0.45}</p>
                     </div>
                 </div>
             </div>
-            </Link>
-            <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-            <p>1 v. 1 Death Match</p>
-            <p>Challenger: Dukes (1 - 0)</p>
+            <div style={{width: '100%', height: '6rem',borderBottom: '1px solid rgba(255, 255, 255, 0.1)', borderTop: '1px solid rgba(255, 255, 255, 0.1)',display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+            <p>{type}</p>
             </div>
-            <div style={{width: '100%', height: '6rem', background: 'rgba(255, 255, 255, 0.025)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            Super Smash Bros (Wii U)
+            <div style={{width: '100%', height: '6rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            {game}
+            </div>
+            <div style={{width: '100%', height: '6rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            sweet#0168
             </div>
         </div>
+        </Link>
     );
 }
  

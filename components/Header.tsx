@@ -77,7 +77,6 @@ const NavLi = ({children, active, onClick}: any) => {
                     line-height: 20.7px;
                     font-family: inherit;
                     font-weight: 700;
-                    color: rgba(255, 255, 255, 0.8);
                 }
 
                 .active {
@@ -231,13 +230,10 @@ const Dropdown = ({setWithdraw, setProfile, setDropdown}: any) => {
                 position: fixed;
                 justify-content: space-between;
                 border: 1px solid rgba(255, 255, 255, 0.1);
+                animation: fadeInText 300ms 0ms forwards;
                 top: 72px;
                 right: 24px;
                 z-index: 3;
-            }
-
-            .submit_btn {
-                background: rgba(255, 255, 255, 0.025);
             }
 
             input {
@@ -247,9 +243,24 @@ const Dropdown = ({setWithdraw, setProfile, setDropdown}: any) => {
                 padding-right: 1rem;
             }
 
+            @keyframes fadeInText {
+                from {
+                  transform: translate(0%, -5%);
+                  opacity: 0;
+                } to {
+                  transform: translate(0%, 0%);
+                  opacity: 1;
+                }
+              }
+
+            .submit_btn {
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
             .submit_btn:hover {
                 background: rgba(255, 255, 255, 0.05);
                 cursor: pointer;
+                
             }
             `}</style>
             <div 
@@ -266,7 +277,6 @@ const Dropdown = ({setWithdraw, setProfile, setDropdown}: any) => {
                 onClick={() => setWithdraw(true)}
                 className="submit_btn"
                 style={{width: '100%', height: '25%',
-                background: 'rgba(255, 255, 255, 0.005)',
                 alignItems: 'center', justifyContent: 'center',
                 fontSize: '1rem', 
                 display: 'flex'}}>
@@ -284,7 +294,6 @@ const Dropdown = ({setWithdraw, setProfile, setDropdown}: any) => {
                 className="submit_btn"
                 onClick={() => signOut()}
                 style={{width: '100%', height: '25%',
-                background: 'rgba(255, 255, 255, 0.005)',
                 alignItems: 'center', justifyContent: 'center',
                 fontSize: '1rem', 
                 display: 'flex'}}>
@@ -336,7 +345,6 @@ const Header: React.SFC<HeaderProps> = ({setWithdraw, setProfile}) => {
                     line-height: 20.7px;
                     font-family: inherit;
                     font-weight: 700;
-                    color: rgba(255, 255, 255, 0.7);
                 }
 
                 .active {
@@ -404,14 +412,13 @@ const Header: React.SFC<HeaderProps> = ({setWithdraw, setProfile}) => {
             </div>
             <div style={{display: 'flex', alignItems: 'center'}}>
             <ul style={{display: 'flex'}}>
-                <NavLi onClick={() => {setDiscover(true); setLeaderboard(false)}} active={discover}>DISCOVER</NavLi>
-                <NavLi>WATCH</NavLi>
+                <NavLi onClick={() => {setDiscover(true); setLeaderboard(false)}} active={discover}>Discover</NavLi>
+                <NavLi>Watch</NavLi>
             {!session && <li onClick={() => signIn("discord")}>LOGIN</li>}    
-           {session && <li onMouseEnter={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)}>
-            {session?.user?.name}#{session?.user?.id}
-            <div style={{border: '1px solid rgba(255, 255, 255, 0.2)', 
-            fontSize: '.75rem',
-            padding: '.5rem', margin: '0 0 0 .75rem'}}>$1000.55</div>
+           {session && <li 
+           style={{flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center'}}
+           onMouseEnter={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)}>
+            {session?.user?.name}#{session?.user?.id} <p style={{fontSize: 12}}>$100.56</p>
             </li> }
             </ul>
             </div>
