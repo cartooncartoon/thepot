@@ -1,9 +1,9 @@
+import { gql, useQuery } from '@apollo/client';
 import { FUNDING, PayPalButtons } from '@paypal/react-paypal-js';
+import { useSession } from 'next-auth/client';
 import Head from 'next/head';
 import React, { useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions';
-import BottomAction from './BottomAction';
-import Fab from './Fab';
 import Footer from './Footer';
 import Header from './Header';
 import SmallHeader from './SmallHeader';
@@ -11,6 +11,15 @@ import SmallHeader from './SmallHeader';
 export interface LayoutProps {
     
 }
+
+const GET_USER =  gql`
+query MyQuery($user: String) {
+  users(where: {user_id: {_eq: $user}}) {
+    name
+    user_id
+  }
+}
+`
 
 const CheckIcon = () => {
   return (
@@ -227,7 +236,7 @@ const Profile = ({setProfile, setDModal}: any) => {
             <PayPalButtons
             disabled={isDisabled} 
             fundingSource={FUNDING.PAYPAL}
-            style={{ layout: "vertical", color: 'blue', shape: 'rect' }} />
+            style={{ layout: "vertical", color: 'black', shape: 'rect' }} />
             </div>
             </div>
             </div>
@@ -604,9 +613,19 @@ const DepositModal = ({setDModal}: any) => {
 const Layout: React.SFC<LayoutProps> = ({ children }) => {
     const {width, height} = useWindowDimensions();
     const [profile, setProfile] = React.useState(false);
+    const [ session ] = useSession();
+    const { loading, error, data } = useQuery(GET_USER, 
+     {variables: { 
+        user: session?.user.uid,
+      }},
+      );
     const [withdraw, setWithdraw] = React.useState(false);
     const [dropdown, setDropdown] = React.useState(false);
     const [dmodal, setDModal] = React.useState(false);
+
+    if(loading) return null;
+    if(error) return null;
+    if(data) console.log(data);
 
     return (  
         <div style={{position: 'relative'}}>

@@ -1,8 +1,6 @@
 import useWindowDimensions from '@/../hooks/useWindowDimensions';
-import { ApolloClient, gql, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, gql, HttpLink, InMemoryCache, useMutation } from '@apollo/client';
 import React from 'react'
-import BottomAction from '../BottomAction';
-import Fab from '../Fab';
 import Match from './Match';
 
 import Rules from './Rules';
@@ -10,6 +8,121 @@ import Rules from './Rules';
 export interface PotProps {
     post: [],
 }
+
+const ADD_USER = gql`
+  mutation AddUser {
+    insert_user_stats_one(object: {post_id: "d98b23fa-4b1d-4ce1-8f04-abe4af722daf", prize: "185", result_text: "1h 20m", id: "7", result_proof_url: "Video", rank: 7, user_name: "sweet#0004"}) {
+      prize
+    }
+  }
+`;
+
+
+
+function DetailsIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      style={{margin: '0 .5rem 0 0'}}
+      height="18"
+      fill="white"
+      viewBox="0 0 64 64"
+    >
+      <path d="M59.5 18.5h-55c-1.1 0-2-.9-2-2s.9-2 2-2h55c1.1 0 2 .9 2 2s-.9 2-2 2zM31.5 34.5h-27c-1.1 0-2-.9-2-2s.9-2 2-2h27c1.1 0 2 .9 2 2s-.9 2-2 2zM31.5 50.5h-27c-1.1 0-2-.9-2-2s.9-2 2-2h27c1.1 0 2 .9 2 2s-.9 2-2 2z"></path>
+    </svg>
+  );
+}
+
+function JoinIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      fill="white"
+      style={{margin: '0 .5rem 0 0'}}
+      viewBox="0 0 24 24"
+    >
+      <path d="M21 3a1 1 0 00-1 1v16a1 1 0 002 0V4a1 1 0 00-1-1zM2 12a1 1 0 001 1h11.586l-2.293 2.293a1 1 0 101.414 1.414l4-4a.99.99 0 00.217-.326 1 1 0 000-.764.99.99 0 00-.217-.326l-4-4a1 1 0 10-1.414 1.414L14.586 11H3a1 1 0 00-1 1z"></path>
+    </svg>
+  );
+}
+
+function TrophyIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      fill="white"
+      style={{margin: '0 .5rem 0 0'}}
+      height="18"
+      viewBox="0 0 512.003 512.003"
+    >
+      <path d="M445.038 266.377c12.773 0 25.049-3.691 35.874-10.957 17.944-12.129 30.399-34.131 30.883-57.012.557-11.631 0-23.95-1.699-37.676-.956-7.853-7.875-13.936-16.787-13.052-15.233 1.961-30.844 9.192-43.858 20.513a193.622 193.622 0 00-2.43-15.081c14.438-7.152 25.6-18.638 31.371-32.972 8.364-20.068 5.742-44.854-6.87-64.688-7.017-11.06-14.575-21.211-22.441-30.205-5.464-6.226-14.897-6.87-21.152-1.406-13.564 11.851-22.705 29.048-26.44 49.878-3.377 19.993-.75 36.851 6.804 55.118 31.394 74.584 2.563 159.864-62.747 201.522-4.623 2.884-8.275 6.872-10.776 11.514H271v-61.278l52.793 27.411a14.997 14.997 0 0015.732-1.187 14.97 14.97 0 005.977-14.59l-12.524-75.352 54.419-53.599a14.984 14.984 0 003.735-15.308 15.025 15.025 0 00-12.026-10.21l-75.176-11.32-34.263-75.747c-4.863-10.752-22.471-10.752-27.334 0L208.07 126.44l-75.176 11.323a15.023 15.023 0 00-12.026 10.21 14.985 14.985 0 003.735 15.308l54.419 53.599-12.524 75.352a14.965 14.965 0 005.977 14.59 15.027 15.027 0 0015.732 1.187L241 280.597v61.278h-64.241c-5.554-9.311-14.041-13.533-21.991-19.746-42.13-34.071-63.475-83.141-63.475-130.254 0-59.894 27.65-69.403 19.468-118.33C107.026 52.876 97.9 35.693 84.35 23.843c-6.196-5.449-15.718-4.834-21.152 1.406-7.925 9.053-15.483 19.219-22.441 30.19-12.612 19.834-15.264 44.619-6.958 64.541 5.832 14.467 17.02 25.984 31.472 33.142a193.424 193.424 0 00-2.43 15.092c-13.057-11.342-28.937-18.574-44.154-20.533-3.955-.425-7.969.586-11.118 3.047a14.939 14.939 0 00-5.669 10.02C.215 174.488-.327 186.822.186 198.16c.63 23.716 13.529 45.776 31.312 57.378 10.415 7.178 22.734 10.854 35.61 10.854 3.003 0 6.053-.363 9.102-.765 1.899 4.634 3.799 9.258 6.041 13.735-13.495-1.745-30.374-1.318-46.901 6.879-7.622 3.78-10.52 13.059-6.621 20.435 5.259 10.005 11.528 21.563 18.984 31.655 12.707 18.548 33.604 31.304 58.286 31.304 14.932 0 29.286-5.722 41.131-15.992 1.837 1.311 3.563 2.6 3.869 3.234v105h-15c-8.291 0-15 6.709-15 15s6.709 15 15 15h240c8.291 0 15-6.709 15-15s-6.709-15-15-15h-15V358.488c.181-.93.571-1.802.571-2.77 1.17-.747 2.181-1.664 3.331-2.433 31.208 27.53 75.39 19.077 100.014-14.866 7.035-10.711 13.9-20.905 19.204-32.417 3.398-7.368.308-16.113-6.973-19.717-13.689-6.78-29.229-8.771-47.173-6.568 2.325-4.616 4.616-9.252 6.568-14.053 2.846.357 5.692.713 8.497.713zM286 431.875h-60c-8.291 0-15-6.709-15-15s6.709-15 15-15h60c8.291 0 15 6.709 15 15s-6.709 15-15 15z"></path>
+    </svg>
+  );
+}
+
+function ClockIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      x="0"
+      y="0"
+      width="18"
+      height="18"
+      style={{margin: '0 .5rem 0 0'}}
+      fill="white"
+      enableBackground="new 0 0 16.644 16.644"
+      version="1.1"
+      viewBox="0 0 16.644 16.644"
+      xmlSpace="preserve"
+    >
+      <g fill="white">
+        <path d="M13.804 4.661l.659-.66.196.195a.464.464 0 00.657 0 .463.463 0 000-.658l-.986-.987a.465.465 0 10-.658.659l.218.216-.648.648a7.227 7.227 0 00-4.203-1.89v-.605h.469a.79.79 0 000-1.579H7.14a.79.79 0 000 1.579h.52v.602h-.029a7.228 7.228 0 00-4.4 2.058l-.403.435a7.215 7.215 0 00-1.755 4.721 7.25 7.25 0 0014.498 0 7.208 7.208 0 00-1.767-4.734zM8.313 15.404a6.022 6.022 0 110-12.044 6.022 6.022 0 010 12.044z"></path>
+        <path d="M8.79 8.843V5.048l-.438-.702-.498.702v3.795a.922.922 0 00.467 1.72c.51 0 .926-.414.926-.925a.917.917 0 00-.457-.795z"></path>
+      </g>
+    </svg>
+  );
+}
+
+function Joystick() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      x="0"
+      y="0"
+      fill="#fff"
+      style={{margin: '0 .5rem 0 0'}}
+      width="18"
+      height="18"
+      enableBackground="new 0 0 512 512"
+      version="1.1"
+      viewBox="0 0 512 512"
+      xmlSpace="preserve"
+    >
+      <path d="M325.414 322.194h-39.95V205.229c43.447-12.759 75.264-52.981 75.264-100.502C360.728 46.98 313.747 0 256 0S151.272 46.98 151.272 104.728c0 47.52 31.816 87.743 75.264 100.502v116.964h-39.95c-8.284 0-15 6.716-15 15v34.888h168.828v-34.888c0-8.284-6.716-15-15-15zM418.343 402.082H93.657c-16.568 0-30 13.431-30 30V482c0 16.569 13.431 30 30 30h324.686c16.569 0 30-13.431 30-30v-49.918c0-16.569-13.431-30-30-30z"></path>
+    </svg>
+  );
+}
+
+function SwordIcon() {
+  return (
+      <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      fill="white"
+      style={{margin: '0 .5rem 0 0'}}
+      viewBox="0 0 512 512"
+    >
+      <path d="M99.871 290.224c-8.704-52.186 20.92-103.802 70.44-122.732l14.659-5.604c9.451-51.393 46.842-93.136 95.948-108.814-16.554-24.261-42.392-41.733-72.456-47.243A363.96 363.96 0 00152.735 0a364.58 364.58 0 00-56.752 6.063C50.487 14.561 14.748 50.93 7.051 96.561c-9.401 55.736-9.401 112.255 0 167.99 4.834 28.654 20.431 53.77 43.509 70.733h58.965c-.561-1.922-7.465-31.948-9.654-45.06zM165.501 416.253c-24.813-17.983-44.19-50.976-44.19-50.976v70.81h87.13c-14.809-2.324-29.683-10.226-42.94-19.834zM54.997 365.277h36.321v70.81H54.997z"></path>
+      <path d="M416.017 77.459c-31.917-5.664-76.518-6.767-111.925-.335l-.555.101c-46.318 8.488-82.633 45.353-90.365 91.732-7.854 47.125-5.961 85.511 6.757 136.671h-29.833c-9.62-40.876-12.598-74.56-9.43-111.049-36.708 14.033-58.645 52.176-52.191 90.871a503.039 503.039 0 007.652 37.129c6.638 27.011 23.784 52.776 47.047 70.682 3.815 2.936 25.905 13.28 39.492 13.419H461.44c23.078-16.964 38.674-42.079 43.509-70.733 9.401-55.735 9.401-112.254 0-167.99-7.697-45.632-43.361-82.411-88.932-90.498zM238.358 436.672h152.33V512h-152.33zM420.682 436.672h36.321V512h-36.321z"></path>
+    </svg>
+  );
+}
+
 
 function CheckIcon() {
     return (
@@ -27,20 +140,24 @@ function CheckIcon() {
   }
 
 
-const JoinModal = ({setJModal}: any) => {
+const JoinModal = ({setJModal, jmodal}: any) => {
     const [show, setShow] = React.useState(true)
 
-    React.useEffect(() => {
-        setTimeout(() => {
-          setShow(false)
-        }, 2000)
-      }, [show])
+    function getRandomInt(max: number) {
+      return Math.floor(Math.random() * max);
+    }
 
-      React.useEffect(() => {
-        setTimeout(() => {
-          setJModal(false)
-        }, 3000)
-    })
+    const [addTodo] = useMutation(ADD_USER,
+      {onCompleted() {
+        setShow(false);
+        setTimeout(() => setJModal(false), 1500)
+      }
+      }
+      );
+
+    React.useEffect(() => {
+      if(jmodal) addTodo()
+    }, [jmodal])
 
     return (
         <div 
@@ -183,7 +300,7 @@ const JoinModal = ({setJModal}: any) => {
                 height: '100%',
                 justifyContent: 'center', flexDirection: 'column'}}>
                 <div className="lds-ring"><div></div><div></div></div>
-                <p className="loading">Joining The Match ⚔️</p>
+                <p className="loading">Joining The Match</p>
                 </div>
                 }
                 {
@@ -192,7 +309,7 @@ const JoinModal = ({setJModal}: any) => {
                 height: '100%',
                 justifyContent: 'center', flexDirection: 'column'}}>
                 <div className="check">{CheckIcon()}</div>
-                <p className="loading">Joined The Match 🎉</p>
+                <p className="loading">Joined The Match!</p>
                 </div>
                 }
             </div>
@@ -502,7 +619,8 @@ opacity: 1;
 }
 
 .info {
-padding: 2rem;
+padding: 1rem;
+max-height: 50%;
 }
 
 @media (max-width: 900px) {
@@ -547,16 +665,37 @@ cursor: pointer;
 `}</style>
    <div className="join">
        <div className="info">
-       <h1>Join</h1>
-       <p>You're one step forward towards the island of the beast! What we need from you is to sign up with your Discord 
-       name and Email address to complete the transaction. </p>
-       <p>By submiting you agree to the rules of the match and the site.</p>
+       <h3>Game Settings:</h3> Unless otherwise specified, the following settings must be set to following:
+<ul>
+<li>Fatigue: ON</li>
+<li>Even Teams: OFF</li>
+<li>Game Speed: NORMAL</li>
+<li>Weather: OFF</li>
+</ul>
+<h3>Lag/Settings/Teams:</h3>After 2 minutes of gameplay any complaints on lag, pre-game settings, or banned teams will not be taken into consideration. No exceptions. (Note: connection is much better if you use a LAN cable instead of WiFi.)
+
+<h3>Disconnections:</h3> In the event of a disconnection, you and your opponent must finish the remaining time of the match, keeping the score the same as it was in the game that got disconnected. i.e. If the disconnection occurred in at the end of the 1st quarter, the new game should be played until the end of the 3rd quarter. We highly recommend recording video of all game footage in case of a dispute.
+
+If you can't continue the match within 15 minutes of disconnecting, Players' Lounge may rule on the match using our discretion. If you were losing, you will be given the loss. If you were winning, the match may be canceled or you may be given the loss depending on the circumstances. It is up to the player who was losing to reach out and attempt to play the match again. If you were losing and no attempt is made to play again within 15 minutes, you will lose the match.
+
+<h3>Show Playbook:</h3> Users must show and confirm playbooks before starting the match. Do not start the match until you’ve confirmed your opponents playbooks.
+
+No Customs: The use of custom playbooks is NOT allowed. The actual "West Coast" and "Multiple-D" Playbooks are allowed. Custom playbooks show up as "West Coast" and "Multiple-D" in the pre-game match screen. If you get caught using a Custom playbook claiming to use the real "West Coast" or "Multiple-D" playbook, you will either forfeit or have the match canceled. If you ready up to play against "West Coast" or "Multiple-D", and suspect your opponent is using a Custom at any time, you must quit the match immediately. You need sufficient evidence of your opponent running a play/formation that is not in the "West Coast" and "Multiple-D" playbook to support your claim.
+
+<h3>Accelerated vs Chew clock:</h3>
+Accelerated clock is a PRE-game setting that is set by the match host. This will cause the play clock to consistently run down to 15/20/25 seconds for each player throughout the entire match. NOTE - the clock automatically runs time off in All-Madden difficulty after selecting a play or during a hurry-up offense. This is NOT Accelerated clock.
+
+Chew clock is an IN-game option that's available to anyone picking an offensive play. Chew will bring the playclock down to 10 seconds after an offensive play is selected. It is legal to Chew at any time and is not disputable unless otherwise specified.
+
+<h3>Pause Timer:</h3> If you are "Kicked for Excessive Griefing" when you are losing a match or the game is tied, you automatically lose. If you are kicked when you are winning a match, the match will be cancelled. If you're kicked prior to the end of the first quarter of game play and the score is tied, we will consider it a non issue and the game should be replayed.
+
+<h3>Online Squads Only:</h3> Matches must be played with Online Squads only. You are not allowed to import a team or a franchise.
        </div>
        <div style={{display: 'flex'}}>
            <div 
            className="submit_btn"
            onClick={() => setGame(false)}
-           style={{width: '100%', height: '15vh',
+           style={{width: '100%', height: '15vh', background: 'rgb(18, 18, 18)',
            alignItems: 'center', justifyContent: 'center',
            fontSize: '1.5rem', fontWeight: 'bold', 
            display: 'flex'}}>
@@ -602,8 +741,11 @@ const Pot: React.SFC<PotProps> = ({post}) => {
         post={post} 
         setBattle={setBattle}
         setGame={setGame}
+        setJModal={setJmodal}
+        jmodal={jmodal}
         setJoin={setJoin} join={join}/>
         {jmodal && <JoinModal 
+        jmodal={jmodal}
         setJModal={setJmodal}
         />}
         {join && <Join 
@@ -639,8 +781,28 @@ const PotDesc = () => {
 }
 
 
-const PotCard = ({setJoin, setBattle, setGame, join, post}: any) => {
+const PotCard = ({setJoin, setBattle, setGame, jmodal, setJModal, post}: any) => {
     const {width, height} = useWindowDimensions();
+    const [w, setW] = React.useState(0);
+    const [pressed, setPressed] = React.useState(false);
+
+    React.useEffect(() => {
+      if (w < 100 && pressed == true) {
+      setW(w + .05);
+      }
+    }, [w, pressed])
+
+    console.log(w);
+
+    if(w > 0 && pressed == false) {
+      setW(0);
+    }
+
+    if(w >= 100 && jmodal == false) {
+      setJModal(true);
+      setW(0);
+    }
+
     return (
         <div className="discoverItem">
             <style jsx>{`
@@ -701,7 +863,7 @@ const PotCard = ({setJoin, setBattle, setGame, join, post}: any) => {
 
             .join_btn:hover {
                 cursor: pointer;
-                background: rgba(255, 255, 255, 0.075);
+                background: rgba(255, 255, 255, 0.0075);
             }
 
             h3 {
@@ -732,6 +894,9 @@ const PotCard = ({setJoin, setBattle, setGame, join, post}: any) => {
                 .discoverItem {
                     top: 0;
                     height: calc(${height}px - 72px);
+                    border-right: none;
+                border-top: none;
+                border-left: none;
                     position: relative;
                 }
 
@@ -758,33 +923,41 @@ const PotCard = ({setJoin, setBattle, setGame, join, post}: any) => {
                 bottom: 0, background: 'rgba(18, 18, 18, 0.85)', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', padding: '1.5rem', alignItems: 'center'}}>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <h1>${post.Pot_Amount}</h1>
-                    <p>5D: 6H: 54M Left</p>
-                    <p>Fee: $220</p>
+                    <p>Fee: ${post.Pot_Amount * .45}</p>
                     </div>
                 </div>
             </div>
             <div className="h_menu">
             <div 
             onClick={() => setBattle(true)}
-            style={{width: '100%', borderTop: '1px solid rgba(255, 255, 255, 0.1)', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-            {post.Game_Type}
+            style={{width: '100%', borderTop: '1px solid rgba(255, 255, 255, 0.1)', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            {post.Game_Type == 'Speedrun' && <ClockIcon />}{post.Game_Type == 'Tournament' && <TrophyIcon />}{post.Game_Type == 'Peer v. Peer' && <SwordIcon />}{post.Game_Type}
             </div>
             <div 
-            onClick={() => setGame(true)}
             style={{width: '100%', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            {post.Game}
+            <Joystick />{post.Game}
             </div>
             <div 
             className="rules_btn"
-            style={{width: '100%', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-            <p>Rules</p>
+            onClick={() => setGame(true)}
+            style={{width: '100%', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', justifyContent: 'center', alignItems: 'center'}}>
+            <DetailsIcon /> Details
             </div>
             <div 
             className="join_btn"
-            onClick={() => setJoin(!join)}
-            style={{width: '100%', 
+            onTouchStart={() => {jmodal == false && setPressed(true)}}
+            onTouchCancel={() => setPressed(false)}
+            onTouchEnd={() => setPressed(false)}
+            onMouseDown={() => 
+              setPressed(true)}
+            onMouseUp={() => setPressed(false)}
+            onMouseLeave={() => setPressed(false)}
+            style={{width: '100%', position: 'relative', 
              display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            Join
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}><JoinIcon />Click & Hold To Join</div>
+               <div 
+               unselectable="on"
+               style={{position: 'absolute', width: `${w}%`, height: '100%', background: 'rgba(255, 255, 255, 0.025)', left: 0}} />
             </div>
             </div>
         </div>

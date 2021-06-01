@@ -7,7 +7,82 @@ export interface DiscoverItemProps {
     prize: any,
     img: any,
     type: any,
+    user: any,
 }
+
+function TrophyIcon() {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        fill="white"
+        style={{margin: '0 .5rem 0 0'}}
+        height="18"
+        viewBox="0 0 512.003 512.003"
+      >
+        <path d="M445.038 266.377c12.773 0 25.049-3.691 35.874-10.957 17.944-12.129 30.399-34.131 30.883-57.012.557-11.631 0-23.95-1.699-37.676-.956-7.853-7.875-13.936-16.787-13.052-15.233 1.961-30.844 9.192-43.858 20.513a193.622 193.622 0 00-2.43-15.081c14.438-7.152 25.6-18.638 31.371-32.972 8.364-20.068 5.742-44.854-6.87-64.688-7.017-11.06-14.575-21.211-22.441-30.205-5.464-6.226-14.897-6.87-21.152-1.406-13.564 11.851-22.705 29.048-26.44 49.878-3.377 19.993-.75 36.851 6.804 55.118 31.394 74.584 2.563 159.864-62.747 201.522-4.623 2.884-8.275 6.872-10.776 11.514H271v-61.278l52.793 27.411a14.997 14.997 0 0015.732-1.187 14.97 14.97 0 005.977-14.59l-12.524-75.352 54.419-53.599a14.984 14.984 0 003.735-15.308 15.025 15.025 0 00-12.026-10.21l-75.176-11.32-34.263-75.747c-4.863-10.752-22.471-10.752-27.334 0L208.07 126.44l-75.176 11.323a15.023 15.023 0 00-12.026 10.21 14.985 14.985 0 003.735 15.308l54.419 53.599-12.524 75.352a14.965 14.965 0 005.977 14.59 15.027 15.027 0 0015.732 1.187L241 280.597v61.278h-64.241c-5.554-9.311-14.041-13.533-21.991-19.746-42.13-34.071-63.475-83.141-63.475-130.254 0-59.894 27.65-69.403 19.468-118.33C107.026 52.876 97.9 35.693 84.35 23.843c-6.196-5.449-15.718-4.834-21.152 1.406-7.925 9.053-15.483 19.219-22.441 30.19-12.612 19.834-15.264 44.619-6.958 64.541 5.832 14.467 17.02 25.984 31.472 33.142a193.424 193.424 0 00-2.43 15.092c-13.057-11.342-28.937-18.574-44.154-20.533-3.955-.425-7.969.586-11.118 3.047a14.939 14.939 0 00-5.669 10.02C.215 174.488-.327 186.822.186 198.16c.63 23.716 13.529 45.776 31.312 57.378 10.415 7.178 22.734 10.854 35.61 10.854 3.003 0 6.053-.363 9.102-.765 1.899 4.634 3.799 9.258 6.041 13.735-13.495-1.745-30.374-1.318-46.901 6.879-7.622 3.78-10.52 13.059-6.621 20.435 5.259 10.005 11.528 21.563 18.984 31.655 12.707 18.548 33.604 31.304 58.286 31.304 14.932 0 29.286-5.722 41.131-15.992 1.837 1.311 3.563 2.6 3.869 3.234v105h-15c-8.291 0-15 6.709-15 15s6.709 15 15 15h240c8.291 0 15-6.709 15-15s-6.709-15-15-15h-15V358.488c.181-.93.571-1.802.571-2.77 1.17-.747 2.181-1.664 3.331-2.433 31.208 27.53 75.39 19.077 100.014-14.866 7.035-10.711 13.9-20.905 19.204-32.417 3.398-7.368.308-16.113-6.973-19.717-13.689-6.78-29.229-8.771-47.173-6.568 2.325-4.616 4.616-9.252 6.568-14.053 2.846.357 5.692.713 8.497.713zM286 431.875h-60c-8.291 0-15-6.709-15-15s6.709-15 15-15h60c8.291 0 15 6.709 15 15s-6.709 15-15 15z"></path>
+      </svg>
+    );
+  }
+
+function ClockIcon() {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        x="0"
+        y="0"
+        width="18"
+        height="18"
+        style={{margin: '0 .5rem 0 0'}}
+        fill="white"
+        enableBackground="new 0 0 16.644 16.644"
+        version="1.1"
+        viewBox="0 0 16.644 16.644"
+        xmlSpace="preserve"
+      >
+        <g fill="white">
+          <path d="M13.804 4.661l.659-.66.196.195a.464.464 0 00.657 0 .463.463 0 000-.658l-.986-.987a.465.465 0 10-.658.659l.218.216-.648.648a7.227 7.227 0 00-4.203-1.89v-.605h.469a.79.79 0 000-1.579H7.14a.79.79 0 000 1.579h.52v.602h-.029a7.228 7.228 0 00-4.4 2.058l-.403.435a7.215 7.215 0 00-1.755 4.721 7.25 7.25 0 0014.498 0 7.208 7.208 0 00-1.767-4.734zM8.313 15.404a6.022 6.022 0 110-12.044 6.022 6.022 0 010 12.044z"></path>
+          <path d="M8.79 8.843V5.048l-.438-.702-.498.702v3.795a.922.922 0 00.467 1.72c.51 0 .926-.414.926-.925a.917.917 0 00-.457-.795z"></path>
+        </g>
+      </svg>
+    );
+  }
+
+function Joystick() {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        x="0"
+        y="0"
+        fill="#fff"
+        style={{margin: '0 .5rem 0 0'}}
+        width="18"
+        height="18"
+        enableBackground="new 0 0 512 512"
+        version="1.1"
+        viewBox="0 0 512 512"
+        xmlSpace="preserve"
+      >
+        <path d="M325.414 322.194h-39.95V205.229c43.447-12.759 75.264-52.981 75.264-100.502C360.728 46.98 313.747 0 256 0S151.272 46.98 151.272 104.728c0 47.52 31.816 87.743 75.264 100.502v116.964h-39.95c-8.284 0-15 6.716-15 15v34.888h168.828v-34.888c0-8.284-6.716-15-15-15zM418.343 402.082H93.657c-16.568 0-30 13.431-30 30V482c0 16.569 13.431 30 30 30h324.686c16.569 0 30-13.431 30-30v-49.918c0-16.569-13.431-30-30-30z"></path>
+      </svg>
+    );
+  }
+
+  function SwordIcon() {
+    return (
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        fill="white"
+        style={{margin: '0 .5rem 0 0'}}
+        viewBox="0 0 512 512"
+      >
+        <path d="M99.871 290.224c-8.704-52.186 20.92-103.802 70.44-122.732l14.659-5.604c9.451-51.393 46.842-93.136 95.948-108.814-16.554-24.261-42.392-41.733-72.456-47.243A363.96 363.96 0 00152.735 0a364.58 364.58 0 00-56.752 6.063C50.487 14.561 14.748 50.93 7.051 96.561c-9.401 55.736-9.401 112.255 0 167.99 4.834 28.654 20.431 53.77 43.509 70.733h58.965c-.561-1.922-7.465-31.948-9.654-45.06zM165.501 416.253c-24.813-17.983-44.19-50.976-44.19-50.976v70.81h87.13c-14.809-2.324-29.683-10.226-42.94-19.834zM54.997 365.277h36.321v70.81H54.997z"></path>
+        <path d="M416.017 77.459c-31.917-5.664-76.518-6.767-111.925-.335l-.555.101c-46.318 8.488-82.633 45.353-90.365 91.732-7.854 47.125-5.961 85.511 6.757 136.671h-29.833c-9.62-40.876-12.598-74.56-9.43-111.049-36.708 14.033-58.645 52.176-52.191 90.871a503.039 503.039 0 007.652 37.129c6.638 27.011 23.784 52.776 47.047 70.682 3.815 2.936 25.905 13.28 39.492 13.419H461.44c23.078-16.964 38.674-42.079 43.509-70.733 9.401-55.735 9.401-112.254 0-167.99-7.697-45.632-43.361-82.411-88.932-90.498zM238.358 436.672h152.33V512h-152.33zM420.682 436.672h36.321V512h-36.321z"></path>
+      </svg>
+    );
+  }
 
 
 function PotIcon() {
@@ -28,30 +103,9 @@ function PotIcon() {
     );
   }
  
-const DiscoverItem: React.SFC<DiscoverItemProps> = ({game, prize, type, img}) => {
-    // Set the date we're counting down to
-const countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
-let days
-let hours
-let minutes
-let seconds
+const DiscoverItem: React.SFC<DiscoverItemProps> = ({game, prize, type, img, user}) => {
 
-// Update the count down every 1 second
-React.useEffect(() => {setInterval(() => {
 
-  // Get today's date and time
-  const now = new Date().getTime();
-    
-  // Find the distance between now and the count down date
-  const distance = countDownDate - now;
-    
-  // Time calculations for days, hours, minutes and seconds
-   days = Math.floor(distance / (1000 * 60 * 60 * 24));
-   hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-   minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-   seconds = Math.floor((distance % (1000 * 60)) / 1000);
-}, 1000);
-});
     return (
         <Link href={`pot/${game}`}>
         <div className="discoverItem">
@@ -106,6 +160,12 @@ React.useEffect(() => {setInterval(() => {
                     transform: none;
                 }
 
+                .discoverItem {
+                border-right: none;
+                border-top: none;
+                border-left: none;
+                }
+
                 .info {
                     padding: 0 16px 0 16px;
                 }
@@ -114,22 +174,21 @@ React.useEffect(() => {setInterval(() => {
             <div className="card">
                 <img width="100%" height="100%" src={`${img}`} />
                 <div style={{position: 'absolute', 
-                bottom: 0, background: 'rgba(18, 18, 18, 0.85)', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', padding: '1.5rem', alignItems: 'center'}}>
+                bottom: 0, background: 'rgba(18, 18, 18, 0.85)', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <h1>${prize}</h1>
-                    <p>{days}D: {hours}H: {minutes}M: {seconds}S: Left</p>
-                    <p>Fee: ${prize * 0.45}</p>
+                    <p>Fee: ${prize * 0.55}</p>
                     </div>
                 </div>
             </div>
-            <div style={{width: '100%', height: '6rem',borderBottom: '1px solid rgba(255, 255, 255, 0.1)', borderTop: '1px solid rgba(255, 255, 255, 0.1)',display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-            <p>{type}</p>
+            <div style={{width: '100%', height: '6rem',borderBottom: '1px solid rgba(255, 255, 255, 0.1)', borderTop: '1px solid rgba(255, 255, 255, 0.1)',display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            {type == 'Speedrun' && <ClockIcon />}{type == 'Tournament' && <TrophyIcon />}{type == 'Peer v. Peer' && <SwordIcon />}{type}
             </div>
             <div style={{width: '100%', height: '6rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            {game}
+            <Joystick /> {game}
             </div>
             <div style={{width: '100%', height: '6rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            sweet#0168
+            <div style={{width: 18, height: 18, background: 'white', borderRadius: '100%', margin: '0 .5rem 0 0'}} />{user}
             </div>
         </div>
         </Link>

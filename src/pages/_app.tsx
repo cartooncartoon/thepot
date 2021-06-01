@@ -4,15 +4,26 @@ import { Provider } from 'next-auth/client'
 import '@/styles/global.css';
 import React from 'react';
 import Layout from '@/../components/Layout';
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/client";
+ import { WebSocketLink } from "@apollo/client/link/ws";
 
-
-const link = new HttpLink({
-  uri: "https://novel-monkey-94.hasura.app/v1/graphql",
-  headers: {
+const link = process.browser ? new WebSocketLink({
+  uri: "wss://novel-monkey-94.hasura.app/v1/graphql",
+  options: { 
+    connectionParams: {
+    headers: {
     'x-hasura-admin-secret': 'YAfDVV13QSPbCWKjRsi2spWbyEJBYCbDb9U8OarAm1loz2OmtxlJs9ubp9TRkDF0',
   }
-});
+}
+  }
+})
+: new HttpLink({
+  uri: "https://novel-monkey-94.hasura.app/v1/graphql",
+  headers: {
+    'x-hasura-admin-secret': 'YAfDVV13QSPbCWKjRsi2spWbyEJBYCbDb9U8OarAm1loz2OmtxlJs9ubp9TRkDF0'
+  }
+})
+;
 
 const client = new ApolloClient({
   link: link,

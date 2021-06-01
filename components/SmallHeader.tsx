@@ -63,7 +63,7 @@ const Profile = ({setDeposit, setProfile, setWithdraw}: any) => {
             style={{width: '100%', 
             borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
             display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-            {!session && <p onClick={() => signIn("discord")}>😊 Login with Discord</p>} 
+            {!session && <p onClick={() => signIn("discord")}>Login with Discord</p>} 
             {session && <p>{session?.user?.name}#{session?.user?.id}</p> }
             </div>
             <div
@@ -71,7 +71,7 @@ const Profile = ({setDeposit, setProfile, setWithdraw}: any) => {
             style={{width: '100%', 
             borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
             display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            💰 Deposit
+            Deposit
             </div>
             <div 
             onClick={() => {
@@ -82,14 +82,14 @@ const Profile = ({setDeposit, setProfile, setWithdraw}: any) => {
             display: 'flex',
             borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
             justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-            <p>💸 Withdraw</p>
+            <p>Withdraw</p>
             </div>
             <div 
             className="join_btn"
             style={{width: '100%', 
             borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
              display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            ✌️ Log Out
+            Log Out
             </div>
             </div>
       <div 
@@ -99,7 +99,7 @@ const Profile = ({setDeposit, setProfile, setWithdraw}: any) => {
                 alignItems: 'center', justifyContent: 'center',
                 fontSize: '1.05rem', 
                 display: 'flex'}}>
-                    👋 Close
+                    Close
                 </div>
     </div>
   )
@@ -212,7 +212,7 @@ const Settings = ({setSettings}: any) => {
         ></path>
         <style jsx>{`
             svg {
-                fill: rgba(255, 255, 255, 0.75);
+                fill: rgba(255, 255, 255, 0.25);
             }
 
             svg:hover {
@@ -237,7 +237,7 @@ function Logo() {
         ></path>
         <style jsx>{`
             svg {
-                fill: rgba(255, 255, 255, 0.75);
+                fill: rgba(255, 255, 255, 1);
             }
 
             svg:hover {
@@ -256,7 +256,7 @@ const Avi = () => {
             .avi {
                 width: 36px;
                 height: 36px;
-                background: rgba(255, 255, 255, 0.75);
+                background: rgba(255, 255, 255, 0.25);
                 border-radius: 100%;
             }
             `}</style>
@@ -280,7 +280,7 @@ const SettingsIcon = () => {
 
         <style jsx>{`
             svg {
-                fill: rgba(255, 255, 255, 0.75);
+                fill: rgba(255, 255, 255, 0.25);
             }
 
             svg:hover {

@@ -143,14 +143,8 @@ const GameSelect = ({children, onClick, active}: any) => {
           align-items: center;
           justify-content: space-between;
           cursor: pointer;
-          padding: 1.5rem;
-          margin: 1rem;
+          padding: 1rem;
           margin-top: 1rem;
-          border: ${active ? '1px solid rgba(255, 255, 255, 1)' : '1px solid rgba(255, 255, 255, 0.1);'}
-      }
-
-      li:hover {
-        border: 1px solid rgba(255, 255, 255, 1);
       }
 
       `}</style>
@@ -295,7 +289,7 @@ const Dropdown = ({setGame}: any) => {
   
   
         .close_btn {
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          
       }
   
         .suggestions {
@@ -310,7 +304,6 @@ const Dropdown = ({setGame}: any) => {
             appeareance: none;
             border: none;
             border-radius: 0px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             outline: none;
             background: none;
             color: white;
@@ -363,8 +356,8 @@ const Dropdown = ({setGame}: any) => {
                   onClick={() => setGame(false)}
                   className="close_btn"
                   style={{width: '100%', height: '7rem', flexShrink: 0,
-                  alignItems: 'center', justifyContent: 'center',
-                  fontSize: '1.5rem', fontWeight: 'bold', 
+                  alignItems: 'center', justifyContent: 'flex-end', marginRight: '2rem',
+                  fontSize: '1.25rem', 
                   display: 'flex'}}>
                       Apply
             </div>
@@ -864,6 +857,7 @@ const Discover: React.SFC<DiscoverProps> = () => {
               prize={post.Pot_Amount}
               type={post.Game_Type}
               img={post.background_image}
+              user={post.user.name}
               game={post.Game}/>
             })}
         </div>
@@ -875,6 +869,9 @@ const GET_POSTS =  gql`
 query MyQuery {
   Post {
     Game
+    user {
+      name
+    }
     Pot_Amount
     background_image
     Game_Type

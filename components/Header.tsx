@@ -10,6 +10,7 @@ export interface HeaderProps {
     dropdown: boolean;
     setDropdown: React.Dispatch<React.SetStateAction<boolean>>;
     withdraw: boolean;
+    
 }
 
 function GoogleIcon() {
@@ -82,7 +83,7 @@ const NavLi = ({children, active, onClick}: any) => {
                 .active {
                     color: rgba(255, 255, 255, 1);
                     border-bottom: 2px solid #fff;
-                    background: rgba(255, 255, 255, 0.05);
+                    background: rgba(255, 255, 255, 0.025);
                 }
 
                 li:hover {
@@ -413,12 +414,14 @@ const Header: React.SFC<HeaderProps> = ({setWithdraw, setProfile}) => {
             <div style={{display: 'flex', alignItems: 'center'}}>
             <ul style={{display: 'flex'}}>
                 <NavLi onClick={() => {setDiscover(true); setLeaderboard(false)}} active={discover}>Discover</NavLi>
-                <NavLi>Watch</NavLi>
+                <NavLi>Create</NavLi>
             {!session && <li onClick={() => signIn("discord")}>LOGIN</li>}    
            {session && <li 
-           style={{flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center'}}
-           onMouseEnter={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)}>
-            {session?.user?.name}#{session?.user?.id} <p style={{fontSize: 12}}>$100.56</p>
+           style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}
+           onMouseEnter={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)}>            
+            <div style={{flexDirection: 'column', display: 'flex', alignItems: 'flex-end', margin: '0 .75rem 0 0'}}>
+                {session?.user?.name}
+            <p style={{fontSize: 14}}>$100.56</p></div>
             </li> }
             </ul>
             </div>
