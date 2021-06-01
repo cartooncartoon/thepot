@@ -10,6 +10,7 @@ import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/c
 const link = process.browser ? new WebSocketLink({
   uri: "wss://novel-monkey-94.hasura.app/v1/graphql",
   options: { 
+    reconnect: true,
     connectionParams: {
     headers: {
     'x-hasura-admin-secret': 'YAfDVV13QSPbCWKjRsi2spWbyEJBYCbDb9U8OarAm1loz2OmtxlJs9ubp9TRkDF0',
@@ -24,6 +25,8 @@ const link = process.browser ? new WebSocketLink({
   }
 })
 ;
+
+
 
 const client = new ApolloClient({
   link: link,

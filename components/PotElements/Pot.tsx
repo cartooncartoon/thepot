@@ -776,7 +776,7 @@ function PotIcon() {
 
 const PotDesc = () => {
     return ( 
-        <Rules />
+      <Rules />
     );
 }
 

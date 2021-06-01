@@ -614,18 +614,9 @@ const Layout: React.SFC<LayoutProps> = ({ children }) => {
     const {width, height} = useWindowDimensions();
     const [profile, setProfile] = React.useState(false);
     const [ session ] = useSession();
-    const { loading, error, data } = useQuery(GET_USER, 
-     {variables: { 
-        user: session?.user.uid,
-      }},
-      );
     const [withdraw, setWithdraw] = React.useState(false);
     const [dropdown, setDropdown] = React.useState(false);
     const [dmodal, setDModal] = React.useState(false);
-
-    if(loading) return null;
-    if(error) return null;
-    if(data) console.log(data);
 
     return (  
         <div style={{position: 'relative'}}>
