@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
+import jwt from 'jsonwebtoken'
 
 
 export default NextAuth({
@@ -17,22 +18,25 @@ export default NextAuth({
     
       jwt: async (token, user, account, profile, isNewUser) => {
         if (profile) {
+          console.log(profile)
           token = {
             ...token,
             id: profile.discriminator,
             uid: profile.id,
           }
-          console.log(profile);
         }
-        return token;
+        return Promise.resolve(token);
       },
       session: async (session, token) => {
+        const encodedToken = jwt.sign(token, 'INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw', { algorithm: 'HS256'});
         if (token) {
           session.user.id = token.id;
           session.user.uid = token.uid;
         }
         return session;
       }
-    }
+    },
+
+    debug: true,
 
 })

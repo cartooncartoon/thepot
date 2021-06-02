@@ -313,7 +313,6 @@ const Header: React.SFC<HeaderProps> = ({setWithdraw, setProfile}) => {
     const [leaderboard, setLeaderboard] = React.useState(false);
     const [login, setLogin] = React.useState(false)
     const [dropdown, setDropdown] = React.useState(false);
-    console.log(session);
     return (
         <div className="header">
             <style jsx>{`
@@ -415,12 +414,12 @@ const Header: React.SFC<HeaderProps> = ({setWithdraw, setProfile}) => {
             <ul style={{display: 'flex'}}>
                 <NavLi onClick={() => {setDiscover(true); setLeaderboard(false)}} active={discover}>Discover</NavLi>
                 <NavLi>Create</NavLi>
-            {!session && <li onClick={() => signIn("discord")}>LOGIN</li>}    
+            {!session && <li onClick={() => signIn("discord", {callbackUrl: `${window.location.origin}`})}>Login</li>}    
            {session && <li 
            style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}
            onMouseEnter={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)}>            
             <div style={{flexDirection: 'column', display: 'flex', alignItems: 'flex-end', margin: '0 .75rem 0 0'}}>
-                {session?.user?.name}
+                {session?.user?.name}#{session?.user?.id}
             <p style={{fontSize: 14}}>$100.56</p></div>
             </li> }
             </ul>

@@ -1,4 +1,5 @@
 import Discover from '@/../components/DiscoverElements/Discover';
+import { getSession } from 'next-auth/client';
 import Head from 'next/head';
 import React from 'react';
 import styles from '../styles/Home.module.css';
@@ -8,7 +9,8 @@ import styles from '../styles/Home.module.css';
 
 
 
-export default function Home() {
+export default function Home({ session }: any) {
+  console.log(session)
   return (
     <div style={{position: 'relative'}}>
       <Head>
@@ -48,4 +50,12 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {
+      session: await getSession(context)
+    }
+  }
 }
