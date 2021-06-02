@@ -320,6 +320,7 @@ const Header: React.SFC<HeaderProps> = ({setWithdraw, setProfile}) => {
                 .logo {
                     fill: rgba(255,255,255, 0.9);
                     color: rgba(255, 255, 255, 0.9);
+                    cursor: pointer;
                 }
 
                 .logo:hover {
@@ -405,7 +406,7 @@ const Header: React.SFC<HeaderProps> = ({setWithdraw, setProfile}) => {
                 <Link href="/">
                 <div 
                 className="logo"
-                style={{display: 'flex', alignItems: 'center', cursor: 'pointer', fontWeight: 'bold', fontSize: '2.25rem'}}>
+                style={{display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '2.25rem'}}>
                 The Pot. <Logo />
                 </div>
                 </Link>
